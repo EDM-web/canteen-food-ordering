@@ -1,0 +1,164 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// ==========================================
+// ENUMS
+// ==========================================
+
+enum Role {
+  Customer
+  Admin
+  Staff
+}
+
+enum OrderStatus {
+  Pending // Student တင်လိုက်သော Order (Admin လက်ခံရန် စောင့်ဆိုင်းနေ)
+  Preparing // Admin မှ လက်ခံပြီး ချက်ပြုတ်/ပြင်ဆင်နေဆဲ
+  Ready // အစားအသောက် ပြင်ဆင်ပြီးသွားပြီ (ကျောင်းသား လာယူနိုင်ပြီ)
+  Completed // ကျောင်းသား လာရောက်ထုတ်ယူပြီး ပိုက်ဆံရှင်းပြီးသွားပြီ
+  Cancelled // ပစ္စည်းကုန်သွား၍ သို့မဟုတ် အကြောင်းတစ်ခုခုကြောင့် ပယ်ဖျက်လိုက်သည်
+}
+
+enum PaymentStatus {
+  Unpaid // ပိုက်ဆံ မရှင်းရသေးပါ
+  Paid // Counter မှာ ပိုက်ဆံ ရှင်းပြီးပါပြီ
+}
+
+// ==========================================
+// BETTER AUTH MODELS
+// ==========================================
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  emailVerified Boolean  @default(false)
+  image         String?
+  role          Role     @default(Customer)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  sessions Session[]
+  accounts Account[]
+  orders   Order[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+  // @@index([userId(length: 191)])
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?   @db.Text
+  refreshToken          String?   @db.Text
+  idToken               String?   @db.Text
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?   @db.Text
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("account")
+  // @@index([userId(length: 191)])
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verification")
+  // @@index([identifier(length: 191)])
+}
+
+// ==========================================
+// CANTEEN DOMAIN MODELS
+// ==========================================
+
+model Category {
+  id        String     @id @default(cuid())
+  name      String     @unique // ဥပမာ - Drinks, Main Course, Snacks
+  items     MenuItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("category")
+}
+
+model MenuItem {
+  id          String   @id @default(cuid())
+  categoryId  String
+  name        String // အစားအသောက် အမည် (ဥပမာ - ကြက်သားဆီချက်)
+  price       Float // ဈေးနှုန်း (ဥပမာ - 3000)
+  imageUrl    String? // ဓာတ်ပုံ Link
+  isAvailable Boolean  @default(true) // Out of Stock Switch ပြုလုပ်ရန်
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  category   Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  @@map("menu_item")
+}
+
+model Order {
+  id            String        @id @default(cuid())
+  userId        String
+  totalAmount   Float // สุสุပေါင်း ကျသင့်ငွေ
+  status        OrderStatus   @default(Pending)
+  paymentStatus PaymentStatus @default(Unpaid)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  @@map("order")
+}
+
+model OrderItem {
+  id         String @id @default(cuid())
+  orderId    String
+  menuItemId String
+  quantity   Int // မှာယူသည့် အရေအတွက်
+  price      Float // မှာယူစဉ်က သတ်မှတ်ထားသော အမှန်တကယ် ဈေးနှုန်း
+
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+
+  @@map("order_item")
+}

@@ -42,7 +42,6 @@ export async function createMenuItemAction(
 ) {
   const categoryId = formData.get("categoryId") as string;
   const name = formData.get("name") as string;
-  const description = formData.get("description") as string;
   const price = parseFloat(formData.get("price") as string);
   const imageUrl = formData.get("imageUrl") as string;
 
@@ -58,7 +57,6 @@ export async function createMenuItemAction(
       data: {
         categoryId,
         name,
-        description,
         price,
         imageUrl: imageUrl || null,
         isAvailable: true,
@@ -105,7 +103,6 @@ export async function updateMenuItemAction(
 ) {
   const id = formData.get("id") as string;
   const name = formData.get("name") as string;
-  const description = formData.get("description") as string;
   const price = parseFloat(formData.get("price") as string);
   const categoryId = formData.get("categoryId") as string;
 
@@ -114,7 +111,6 @@ export async function updateMenuItemAction(
       where: { id },
       data: {
         name,
-        description,
         price,
         categoryId,
       },

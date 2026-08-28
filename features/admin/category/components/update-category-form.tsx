@@ -20,7 +20,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { signInPath } from "@/lib/path";
-import { PencilIcon } from "lucide-react";
+import { checkSession } from "@/lib/session";
 
 interface UpdateCategoryFormProps {
   category: {
@@ -31,7 +31,7 @@ interface UpdateCategoryFormProps {
 
 const UpdateCategoryForm = ({ category }: UpdateCategoryFormProps) => {
   const router = useRouter();
-  const { data: session } = authClient.useSession();
+  // const { data: session } = authClient.useSession();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,8 +42,10 @@ const UpdateCategoryForm = ({ category }: UpdateCategoryFormProps) => {
     success: false,
   });
 
-  const handleOpenChange = (open: boolean) => {
-    if (open && !session?.user) {
+  const handleOpenChange = async (open: boolean) => {
+    const hasSession = await checkSession();
+
+    if (!hasSession) {
       router.push(signInPath);
       toast.error("Please sign in to update category");
       return;

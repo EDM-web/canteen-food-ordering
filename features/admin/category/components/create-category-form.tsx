@@ -21,10 +21,11 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { signInPath } from "@/lib/path";
 import { PlusIcon } from "lucide-react";
+import { checkSession } from "@/lib/session";
 
 const CreateCategoryForm = () => {
   const router = useRouter();
-  const { data: session } = authClient.useSession();
+  // const { data: session } = authClient.useSession();
 
   const [isOpen, setIsOpen] = useState(false);
   const [state, action] = useActionState(createCategory, {
@@ -32,8 +33,9 @@ const CreateCategoryForm = () => {
     success: false,
   });
 
-  const handleOpenChange = (open: boolean) => {
-    if (open && !session?.user) {
+  const handleOpenChange = async (open: boolean) => {
+    const hasSession = await checkSession();
+    if (!hasSession) {
       router.push(signInPath);
       toast.error("Please sign in to create a category");
       return;

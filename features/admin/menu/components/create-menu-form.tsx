@@ -30,6 +30,7 @@ import { createMenu } from "../actions/create-menu";
 import { UploadDropzone } from "@/lib/uploadthing";
 import Image from "next/image";
 import { PlusIcon, X } from "lucide-react";
+import { checkSession } from "@/lib/session";
 
 interface CategoryOption {
   id: string;
@@ -50,8 +51,7 @@ const CreateMenuForm = ({
   trigger,
 }: Props) => {
   const router = useRouter();
-  const { data: session, isPending: isSessionLoading } =
-    authClient.useSession();
+  // const { data: session } = authClient.useSession();
 
   const [imageUrl, setImageUrl] = useState<string>("");
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>(
@@ -63,10 +63,10 @@ const CreateMenuForm = ({
     success: false,
   });
 
-  const handleOpenChange = (open: boolean) => {
-    if (open && isSessionLoading) return;
+  const handleOpenChange = async (open: boolean) => {
+    const hasSession = await checkSession();
 
-    if (open && !session?.user) {
+    if (!hasSession) {
       router.push(signInPath);
       toast.error("Please sign in to create a menu");
       return;

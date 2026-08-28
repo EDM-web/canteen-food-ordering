@@ -22,6 +22,7 @@ import { authClient } from "@/lib/auth-client";
 import { signInPath } from "@/lib/path";
 import { createMenu } from "../actions/create-menu";
 import { updateMenu } from "../actions/update-menu";
+import { checkSession } from "@/lib/session";
 
 interface Props {
   menuId: string;
@@ -32,7 +33,7 @@ interface Props {
 
 const UpdateMenuForm = ({ menuId, categoryId, name, price }: Props) => {
   const router = useRouter();
-  const { data: session } = authClient.useSession();
+  // const { data: session } = authClient.useSession();
 
   const [isOpen, setIsOpen] = useState(false);
   const [state, action] = useActionState(updateMenu, {
@@ -40,8 +41,10 @@ const UpdateMenuForm = ({ menuId, categoryId, name, price }: Props) => {
     success: false,
   });
 
-  const handleOpenChange = (open: boolean) => {
-    if (open && !session?.user) {
+  const handleOpenChange = async (open: boolean) => {
+    const hasSession = await checkSession();
+
+    if (!hasSession) {
       router.push(signInPath);
       toast.error("Please sign in to create a menu");
       return;

@@ -50,7 +50,8 @@ const CreateMenuForm = ({
   trigger,
 }: Props) => {
   const router = useRouter();
-  const { data: session } = authClient.useSession();
+  const { data: session, isPending: isSessionLoading } =
+    authClient.useSession();
 
   const [imageUrl, setImageUrl] = useState<string>("");
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>(
@@ -63,6 +64,8 @@ const CreateMenuForm = ({
   });
 
   const handleOpenChange = (open: boolean) => {
+    if (open && isSessionLoading) return;
+
     if (open && !session?.user) {
       router.push(signInPath);
       toast.error("Please sign in to create a menu");
@@ -108,7 +111,7 @@ const CreateMenuForm = ({
             <DialogTitle>Create Menu Item</DialogTitle>
             <DialogDescription>
               Add a new menu{" "}
-              {categoryName ? `to "${categoryName}"` : "item to your menu list"}
+              {categoryName ? `to ${categoryName}` : "item to your menu list"}
             </DialogDescription>
           </DialogHeader>
 
@@ -144,35 +147,6 @@ const CreateMenuForm = ({
                 </div>
               ) : (
                 <div className="flex justify-center items-center bg-slate-50/50 border-2 border-slate-200 hover:border-orange-400 border-dashed rounded-xl w-full h-48 transition-colors">
-                  {/* <UploadDropzone
-                    endpoint="imageUploader"
-                    onClientUploadComplete={(res) => {
-                      if (res && res[0]) {
-                        setImageUrl(res[0].ufsUrl);
-                        toast.success("Image uploaded successfully");
-                      }
-                    }}
-                    onUploadError={(error: Error) => {
-                      toast.error(`Upload failed: ${error.message}`);
-                    }}
-                    content={{
-                      label: (
-                        <span className="font-medium text-slate-500 text-xs">
-                          Upload Image
-                        </span>
-                      ),
-                      allowedContent: null,
-                    }}
-                    appearance={{
-                      container:
-                        "border-none p-0 h-full w-full flex flex-col items-center justify-center cursor-pointer",
-                      button:
-                        "!bg-orange-600 hover:!bg-orange-600 text-white text-xs  !py-4 rounded-md mt-2   cursor-pointer shadow-none" +
-                        "ut-uploading:!bg-orange-600" +
-                        "ut-uploading:after:!bg-orange-600 ut-uploading:before:!bg-orange-600 focus-within:!ring-orange-500",
-                      label: "text-xs text-slate-500 mt-1",
-                    }}
-                  /> */}
                   <UploadDropzone
                     endpoint="imageUploader"
                     onClientUploadComplete={(res) => {

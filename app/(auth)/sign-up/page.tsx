@@ -58,8 +58,8 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="flex justify-center items-center bg-slate-50/50 p-4 min-h-[calc(100vh-4rem)]">
-      <div className="grid grid-cols-1 lg:grid-cols-2 bg-white shadow-xl border border-slate-100 rounded-3xl w-full max-w-4xl overflow-hidden">
+    <div className="flex justify-center items-center lg:bg-slate-50/50 p-4 min-h-[calc(100vh-4rem)]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 bg-white shadow-xl border border-slate-100 rounded-xl sm:rounded-2xl lg:rounded-3xl w-full max-w-4xl overflow-hidden">
         {/* Left Column: Food Image */}
         <div className="hidden relative lg:flex flex-col justify-between bg-slate-900 p-10 min-h-[620px] text-white">
           <Image
@@ -90,13 +90,13 @@ export default function SignUpPage() {
         </div>
 
         {/* Right Column: Form Inputs */}
-        <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12">
+        <div className="flex flex-col justify-center p-4 sm:p-10 lg:p-12">
           <div className="space-y-2 mb-6">
             <h1 className="font-bold text-slate-900 text-2xl sm:text-3xl tracking-tight">
               Create Account
             </h1>
             <p className="text-slate-500 text-sm">
-              Fill in your details to get started
+              Create a new account to order delicious food
             </p>
           </div>
 
@@ -105,7 +105,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label
                 htmlFor="name"
-                className="font-medium text-slate-700 text-xs uppercase tracking-wider"
+                className="font-medium text-slate-700 text-sm uppercase tracking-wider"
               >
                 Full Name
               </Label>
@@ -117,7 +117,7 @@ export default function SignUpPage() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-10 transition-all"
+                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-9 sm:h-11 transition-all"
               />
               {(liveErrors.name || state.fieldErrors?.name) && (
                 <p className="font-medium text-rose-500 text-xs">
@@ -130,7 +130,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label
                 htmlFor="email"
-                className="font-medium text-slate-700 text-xs uppercase tracking-wider"
+                className="font-medium text-slate-700 text-sm uppercase tracking-wider"
               >
                 Email Address
               </Label>
@@ -142,7 +142,7 @@ export default function SignUpPage() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-10 transition-all"
+                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-9 sm:h-11 transition-all"
               />
               {(liveErrors.email || state.fieldErrors?.email) && (
                 <p className="font-medium text-rose-500 text-xs">
@@ -155,7 +155,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label
                 htmlFor="password"
-                className="font-medium text-slate-700 text-xs uppercase tracking-wider"
+                className="font-medium text-slate-700 text-sm uppercase tracking-wider"
               >
                 Password
               </Label>
@@ -163,11 +163,11 @@ export default function SignUpPage() {
                 id="password"
                 name="password"
                 type="password"
-                placeholder="••••••••"
+                placeholder="!example@157#"
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-10 transition-all"
+                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-9 sm:h-11 transition-all"
               />
               {(liveErrors.password || state.fieldErrors?.password) && (
                 <p className="font-medium text-rose-500 text-xs">
@@ -180,7 +180,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label
                 htmlFor="confirmPassword"
-                className="font-medium text-slate-700 text-xs uppercase tracking-wider"
+                className="font-medium text-slate-700 text-sm uppercase tracking-wider"
               >
                 Confirm Password
               </Label>
@@ -188,11 +188,11 @@ export default function SignUpPage() {
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
-                placeholder="••••••••"
+                placeholder="!example@157#"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required
-                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-10 transition-all"
+                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-9 sm:h-11 transition-all"
               />
               {(liveErrors.confirmPassword ||
                 state.fieldErrors?.confirmPassword) && (

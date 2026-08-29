@@ -12,12 +12,20 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
-import { homePath, menuPath, signInPath, signUpPath } from "@/lib/path";
+import {
+  homePath,
+  menuPath,
+  orderPath,
+  signInPath,
+  signUpPath,
+} from "@/lib/path";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { CartIcon } from "./cart-icon";
 import { ProfileDropdown } from "@/features/profile/components/profile-dropdown";
-import { Menu, Home, Utensils, LogIn, UserPlus } from "lucide-react";
+import { Menu, Home, Utensils, LogOut, ShoppingBag } from "lucide-react";
+import { signOut } from "@/features/auth/actions/sign-out";
+import MoblieProfile from "./mobile-profile";
 
 const Navbar = async () => {
   const session = await auth.api.getSession({
@@ -29,11 +37,20 @@ const Navbar = async () => {
     { title: "Menu", url: menuPath, icon: Utensils },
   ];
 
+  const moblieNavItems = [
+    { title: "Home", url: homePath, icon: Home },
+    { title: "Menu", url: menuPath, icon: Utensils },
+    { title: "My Orders", url: orderPath, icon: ShoppingBag },
+  ];
+
   return (
     <header className="top-0 z-50 sticky bg-background/95 supports-[backdrop-filter]:bg-background/60 backdrop-blur border-b w-full">
       <div className="flex justify-between items-center mx-auto md:p-0 px-3 h-16 container">
         {/* Brand / Logo */}
-        <Link href="/" className="flex items-center gap-2 font-bold text-xl">
+        <Link
+          href="/"
+          className="flex items-center gap-2 font-bold text-2xl lg:text-3xl"
+        >
           <span className="text-orange-500">Canteen</span>
         </Link>
 
@@ -69,27 +86,29 @@ const Navbar = async () => {
           {/* Moblie register button  */}
           {!session && (
             <Button
-              size={"sm"}
+              size={"lg"}
               variant={"default"}
-              className="bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 cursor-pointer"
+              className="bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 px-4 cursor-pointer"
               asChild
             >
               <Link href={signUpPath}>Register</Link>
             </Button>
           )}
 
+          {session?.user && <ProfileDropdown user={session.user} />}
+
           {session && <CartIcon />}
 
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="w-9 h-9">
-                <Menu className="w-5 h-5" />
+              <Button variant="outline" size="icon" className="w-9 h-9">
+                <Menu />
               </Button>
             </SheetTrigger>
 
             <SheetContent
-              side="right"
-              className="flex flex-col justify-between p-6 w-[280px] sm:w-[320px]"
+              side="left"
+              className="flex flex-col justify-between p-2"
             >
               <div className="flex flex-col gap-6">
                 {/* Header Section */}
@@ -101,7 +120,7 @@ const Navbar = async () => {
 
                 {/* Nav Links */}
                 <nav className="flex flex-col gap-1">
-                  {navItems.map((nav) => {
+                  {moblieNavItems.map((nav) => {
                     const Icon = nav.icon;
                     return (
                       <Link
@@ -114,15 +133,14 @@ const Navbar = async () => {
                       </Link>
                     );
                   })}
+                  {session?.user && <MoblieProfile user={session?.user} />}
                 </nav>
               </div>
 
               {/* Bottom Profile / Auth Section */}
               <div className="pt-4 border-t">
                 {session?.user ? (
-                  <div className="flex justify-between items-center bg-muted/50 p-2 rounded-lg">
-                    <ProfileDropdown user={session.user} />
-                  </div>
+                  <SignOutButton />
                 ) : (
                   <SignUpAndSignInButtons isMobile />
                 )}
@@ -144,17 +162,17 @@ export const SignUpAndSignInButtons = ({
 }) => {
   if (isMobile) {
     return (
-      <div className="flex flex-row gap-2 w-full">
+      <div className="flex flex-row gap-2">
         <Button
           variant={"secondary"}
-          className="w-[50%] cursor-pointer"
+          className="flex-1 w-fit cursor-pointer"
           asChild
         >
           <Link href={signInPath}>Signin</Link>
         </Button>
         <Button
           variant={"default"}
-          className="bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 w-[50%] cursor-pointer"
+          className="flex-1 bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 w-fit cursor-pointer"
           asChild
         >
           <Link href={signUpPath}>Register</Link>
@@ -180,6 +198,19 @@ export const SignUpAndSignInButtons = ({
   );
 };
 
+const SignOutButton = () => {
+  return (
+    <form action={signOut} className="w-full">
+      <button
+        type="submit"
+        className="flex items-center hover:bg-rose-500/10 px-3 py-2.5 rounded-lg w-full text-rose-600 text-sm cursor-pointer"
+      >
+        <LogOut className="mr-2 w-4 h-4" />
+        <span>Sign Out</span>
+      </button>
+    </form>
+  );
+};
 // export const SignUpAndSignInButtons = () => {
 //   return (
 //     <div className="flex items-center gap-2">

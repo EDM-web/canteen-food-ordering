@@ -22,9 +22,10 @@ interface UserNavProps {
     email?: string | null;
     image?: string | null;
   };
+  isMoblietype?: boolean;
 }
 
-export function ProfileDropdown({ user }: UserNavProps) {
+export function ProfileDropdown({ user, isMoblietype = true }: UserNavProps) {
   const [openProfile, setOpenProfile] = useState(false);
 
   const userInitials = user.name
@@ -46,7 +47,7 @@ export function ProfileDropdown({ user }: UserNavProps) {
               </AvatarFallback>
             </Avatar>
             <span className="max-w-[120px] font-medium text-slate-700 text-sm truncate">
-              {user.name || "User"}
+              {user.name}
             </span>
             <ChevronDown className="w-4 h-4 text-slate-500" />
           </Button>

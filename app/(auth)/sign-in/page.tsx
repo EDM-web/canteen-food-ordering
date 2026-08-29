@@ -62,8 +62,8 @@ export default function SignInPage() {
   const isFormValid = signInSchema.safeParse(formData).success;
 
   return (
-    <div className="flex justify-center items-center bg-slate-50/50 p-4 min-h-[calc(100vh-4rem)]">
-      <div className="grid grid-cols-1 lg:grid-cols-2 bg-white shadow-xl border border-slate-100 rounded-3xl w-full max-w-4xl overflow-hidden">
+    <div className="flex justify-center items-center lg:bg-slate-50/50 p-4 min-h-[calc(100vh-4rem)]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 bg-white shadow-xl border border-slate-100 rounded-xl sm:rounded-2xl lg:rounded-3xl w-full max-w-4xl overflow-hidden">
         {/* Left Column: Food Image */}
         <div className="hidden relative lg:flex flex-col justify-between bg-slate-900 p-10 min-h-[550px] text-white">
           <Image
@@ -94,13 +94,13 @@ export default function SignInPage() {
         </div>
 
         {/* Right Column: Form Inputs */}
-        <div className="flex flex-col justify-center p-6 sm:p-10 lg:p-12">
+        <div className="flex flex-col justify-center p-4 sm:p-10 lg:p-12">
           <div className="space-y-2 mb-8">
             <h1 className="font-bold text-slate-900 text-2xl sm:text-3xl tracking-tight">
               Sign In
             </h1>
             <p className="text-slate-500 text-sm">
-              Enter your credentials to access your account
+              Enter your existing account
             </p>
           </div>
 
@@ -121,7 +121,7 @@ export default function SignInPage() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-11 transition-all"
+                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-9 sm:h-11 transition-all"
               />
               {(liveErrors.email || state.fieldErrors?.email) && (
                 <p className="font-medium text-rose-500 text-xs">
@@ -146,7 +146,7 @@ export default function SignInPage() {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-11 transition-all"
+                className="bg-slate-50/50 focus:bg-white border-slate-200 focus:border-orange-500 h-9 sm:h-11 transition-all"
               />
               {(liveErrors.password || state.fieldErrors?.password) && (
                 <p className="font-medium text-rose-500 text-xs">

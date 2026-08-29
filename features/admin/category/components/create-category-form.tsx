@@ -57,10 +57,10 @@ const CreateCategoryForm = () => {
   return (
     <Dialog onOpenChange={handleOpenChange} open={isOpen}>
       {/* Trigger stays outside the form */}
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className="w-fit">
         <Button
           variant="default"
-          className="bg-orange-600 hover:bg-orange-600 shadow-lg mb-5 py-4 rounded-md cursor-pointer"
+          className="bg-orange-600 hover:bg-orange-600 shadow-lg py-4 rounded-md cursor-pointer"
         >
           <PlusIcon /> New Category
         </Button>

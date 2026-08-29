@@ -92,13 +92,13 @@ const CreateMenuForm = ({
 
   return (
     <Dialog onOpenChange={handleOpenChange} open={isOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className="w-fit">
         {trigger ? (
           trigger
         ) : (
           <Button
             variant="default"
-            className="bg-orange-600 hover:bg-orange-600 shadow-lg py-4 rounded-md cursor-pointer"
+            className="bg-orange-600 hover:bg-orange-600 shadow-lg rounded-md cursor-pointer"
           >
             <PlusIcon /> Create Menu
           </Button>

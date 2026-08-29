@@ -11,8 +11,10 @@ const MenuPage = async () => {
 
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-center">
-        <h1 className="font-bold text-slate-700 text-3xl">All Menu Items</h1>
+      <div className="flex sm:flex-row flex-col justify-between items-start sm:items-center gap-6">
+        <h1 className="font-bold text-slate-700 text-2xl sm:text-3xl xl:text-4xl tracking-tight">
+          All Menu Items
+        </h1>
         <CreateMenuForm categories={categories} />
       </div>
       <AllMenuList />

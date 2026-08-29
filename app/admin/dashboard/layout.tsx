@@ -25,7 +25,7 @@ export default async function AdminDashboardLayout({
           <div className="flex items-center gap-2">
             <SidebarTrigger className="hover:bg-slate-100 -ml-1 w-8 h-8 text-slate-600" />
             <Separator orientation="vertical" className="mr-2" />
-            <span className="font-semibold text-slate-600 text-xs">
+            <span className="font-semibold text-slate-600 text-sm md:text-base">
               Welcome {session?.user.name}
             </span>
           </div>

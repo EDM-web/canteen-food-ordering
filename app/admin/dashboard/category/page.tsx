@@ -7,8 +7,8 @@ const CategoryPage = async () => {
   return (
     <>
       <div className="space-y-8">
-        <div className="flex justify-between">
-          <h2 className="font-bold text-slate-700 text-3xl tracking-tight">
+        <div className="flex sm:flex-row flex-col justify-between items-start sm:items-center gap-6">
+          <h2 className="font-bold text-slate-700 text-2xl sm:text-3xl xl:text-4xl tracking-tight">
             {" "}
             Categories
           </h2>

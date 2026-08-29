@@ -22,7 +22,7 @@ const AllMenuList = async () => {
   if (!allMenu || allMenu.length === 0) {
     return (
       <div className="bg-white p-8 border rounded-lg text-muted-foreground text-center">
-        No menu items available.
+        No menu items found
       </div>
     );
   }

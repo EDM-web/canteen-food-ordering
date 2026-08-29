@@ -80,7 +80,7 @@ export default async function AdminDashboardPage() {
   return (
     <div className="space-y-8 min-h-screen">
       <div className="space-y-1">
-        <h1 className="font-bold text-slate-700 text-2xl sm:text-3xl tracking-tight">
+        <h1 className="font-bold text-slate-700 text-2xl sm:text-3xl xl:text-4xl tracking-tight">
           Admin Dashboard
         </h1>
         {/* <p className="text-slate-500 text-sm">

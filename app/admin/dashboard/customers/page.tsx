@@ -34,75 +34,69 @@ export default async function AdminCustomersPage() {
     <div className="space-y-6 mx-auto max-w-7xl">
       {/* Header Title */}
       <div>
-        <h1 className="font-bold text-slate-700 text-3xl tracking-tight">
+        <h1 className="font-bold text-slate-700 text-2xl sm:text-3xl xl:text-4xl tracking-tight">
           Customers Overview
         </h1>
-        <p className="text-muted-foreground text-sm">
+        {/* <p className="text-muted-foreground text-sm">
           View and manage registered canteen customers and their ordering
           activities.
-        </p>
+        </p> */}
       </div>
 
       {/* Top Stat Cards */}
       <div className="gap-4 grid md:grid-cols-3">
-        <Card className="shadow-sm border">
-          <CardHeader className="flex flex-row justify-between items-center space-y-0 pb-2">
+        <Card className="shadow-sm border border-slate-200/80 ring-0">
+          <CardHeader className="flex flex-row justify-between items-center space-y-0">
             <CardTitle className="font-medium text-sm">
               Total Customers
             </CardTitle>
-            <Users className="w-4 h-4 text-orange-600" />
+            <div className="flex justify-center items-center bg-orange-50 rounded-xl w-10 h-10 text-orange-600">
+              <Users className="w-5 h-5" />
+            </div>
           </CardHeader>
           <CardContent>
             <div className="font-bold text-2xl">{totalCustomers}</div>
-            <p className="mt-1 text-muted-foreground text-xs">
-              Active registered accounts
-            </p>
           </CardContent>
         </Card>
 
-        <Card className="shadow-sm border">
-          <CardHeader className="flex flex-row justify-between items-center space-y-0 pb-2">
+        <Card className="shadow-sm border border-slate-200/80 ring-0">
+          <CardHeader className="flex flex-row justify-between items-center space-y-0">
             <CardTitle className="font-medium text-sm">
               Total Orders Placed
             </CardTitle>
-            <ShoppingBag className="w-4 h-4 text-blue-600" />
+
+            <div className="flex justify-center items-center bg-blue-50 rounded-xl w-10 h-10 text-blue-600">
+              <ShoppingBag className="w-5 h-5" />
+            </div>
           </CardHeader>
           <CardContent>
             <div className="font-bold text-2xl">{totalOrdersCount}</div>
-            <p className="mt-1 text-muted-foreground text-xs">
-              Combined order volume
-            </p>
           </CardContent>
         </Card>
 
-        <Card className="shadow-sm border">
-          <CardHeader className="flex flex-row justify-between items-center space-y-0 pb-2">
+        <Card className="shadow-sm border border-slate-200/80 ring-0">
+          <CardHeader className="flex flex-row justify-between items-center space-y-0">
             <CardTitle className="font-medium text-sm">
               Total Customer Value
             </CardTitle>
-            <DollarSign className="w-4 h-4 text-emerald-600" />
+
+            <div className="flex justify-center items-center bg-emerald-50 rounded-xl w-10 h-10 text-emerald-600">
+              <DollarSign className="w-5 h-5" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="font-bold text-emerald-600 text-2xl">
+            <div className="font-bold text-emerald-600/80 text-2xl">
               {totalRevenue.toLocaleString()} MMK
             </div>
-            <p className="mt-1 text-muted-foreground text-xs">
-              Lifetime customer spend
-            </p>
           </CardContent>
         </Card>
       </div>
 
       {/* Customer List Table */}
-      <Card className="shadow-sm border">
+      <Card className="shadow-sm border border-slate-200/80 ring-0 text-slate-700">
         <CardHeader className="pb-3">
-          <CardTitle className="font-medium text-lg">
-            Customer Directory
-          </CardTitle>
-          <CardDescription>
-            Detailed list of all customers and their overall transaction
-            history.
-          </CardDescription>
+          <CardTitle className="font-medium text-lg">All Customer</CardTitle>
+          <CardDescription>Detailed list of all customers</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>

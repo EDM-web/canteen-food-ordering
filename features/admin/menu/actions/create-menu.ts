@@ -1,8 +1,10 @@
 "use server";
 
+import { auth } from "@/lib/auth";
 import { categoryDetailPath, menuPath, categoryPath } from "@/lib/path";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 
 interface ActionStateProps {
   message: string;
@@ -13,6 +15,13 @@ export const createMenu = async (
   _state: ActionStateProps,
   formData: FormData
 ) => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    return { message: "Unauthorized. Please login again.", success: false };
+  }
   const categoryId = formData.get("id") as string;
   const name = formData.get("name") as string;
   const price = parseFloat(formData.get("price") as string);

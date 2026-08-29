@@ -19,6 +19,7 @@ interface Props {
   categoryId?: string;
   categoryName?: string;
   isAvailable?: boolean;
+  hasSession?: boolean;
 }
 
 const MenuItem = async ({
@@ -87,6 +88,7 @@ const MenuItem = async ({
               name={name}
               price={price}
               categoryId={categoryId}
+              hasSession={!!session?.user}
             />
             {/* <DeleteMenuButton id={id} /> */}
           </div>
@@ -120,7 +122,7 @@ const MenuItem = async ({
               {categoryName}
             </p>
           )}
-          <h3 className="font-bold text-gray-800 text-base line-clamp-1 leading-snug">
+          <h3 className="font-bold text-gray-800 text-base line-clamp-1">
             {name}
           </h3>
         </div>
@@ -137,8 +139,9 @@ const MenuItem = async ({
                 name={name}
                 price={price}
                 categoryId={categoryId}
+                hasSession={!!session?.user}
               />
-              <DeleteMenuButton id={id} />
+              {/* <DeleteMenuButton id={id} /> */}
             </div>
           ) : (
             <AddToCartButton id={id} name={name} price={price} image={image} />

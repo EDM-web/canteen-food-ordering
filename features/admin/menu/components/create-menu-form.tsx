@@ -24,13 +24,11 @@ import { Label } from "@/components/ui/label";
 import { useActionState, useEffect, useState, ReactNode } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
 import { signInPath } from "@/lib/path";
 import { createMenu } from "../actions/create-menu";
 import { UploadDropzone } from "@/lib/uploadthing";
 import Image from "next/image";
 import { PlusIcon, X } from "lucide-react";
-import { checkSession } from "@/lib/session";
 
 interface CategoryOption {
   id: string;
@@ -42,6 +40,7 @@ interface Props {
   categoryName?: string;
   categories?: CategoryOption[]; // All Menu Page အတွက် Passing Data
   trigger?: ReactNode;
+  hasSession?: boolean;
 }
 
 const CreateMenuForm = ({
@@ -49,6 +48,7 @@ const CreateMenuForm = ({
   categoryName,
   categories = [],
   trigger,
+  hasSession,
 }: Props) => {
   const router = useRouter();
   // const { data: session } = authClient.useSession();
@@ -63,10 +63,8 @@ const CreateMenuForm = ({
     success: false,
   });
 
-  const handleOpenChange = async (open: boolean) => {
-    const hasSession = await checkSession();
-
-    if (!hasSession) {
+  const handleOpenChange = (open: boolean) => {
+    if (open && !hasSession) {
       router.push(signInPath);
       toast.error("Please sign in to create a menu");
       return;

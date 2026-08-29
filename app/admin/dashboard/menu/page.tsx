@@ -15,7 +15,7 @@ const MenuPage = async () => {
         <h1 className="font-bold text-slate-700 text-2xl sm:text-3xl xl:text-4xl tracking-tight">
           All Menu Items
         </h1>
-        <CreateMenuForm categories={categories} />
+        <CreateMenuForm categories={categories} hasSession={!!session?.user} />
       </div>
       <AllMenuList />
     </div>

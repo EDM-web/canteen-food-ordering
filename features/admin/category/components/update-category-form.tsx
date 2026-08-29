@@ -18,18 +18,20 @@ import { useActionState, useEffect, useState } from "react";
 import { updateCategory } from "../actions/update-category";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
 import { signInPath } from "@/lib/path";
-import { checkSession } from "@/lib/session";
 
 interface UpdateCategoryFormProps {
   category: {
     id: string;
     name: string;
   };
+  hasSession?: boolean;
 }
 
-const UpdateCategoryForm = ({ category }: UpdateCategoryFormProps) => {
+const UpdateCategoryForm = ({
+  category,
+  hasSession,
+}: UpdateCategoryFormProps) => {
   const router = useRouter();
   // const { data: session } = authClient.useSession();
 
@@ -37,15 +39,13 @@ const UpdateCategoryForm = ({ category }: UpdateCategoryFormProps) => {
 
   // Action ထဲကို category.id ပါအောင် bind လုပ်ပေးထားပါသည်
   const updateCategoryWithId = updateCategory.bind(null, category.id);
-  const [state, action] = useActionState(updateCategoryWithId, {
+  const [state, action, isPending] = useActionState(updateCategoryWithId, {
     message: "",
     success: false,
   });
 
-  const handleOpenChange = async (open: boolean) => {
-    const hasSession = await checkSession();
-
-    if (!hasSession) {
+  const handleOpenChange = (open: boolean) => {
+    if (open && !hasSession) {
       router.push(signInPath);
       toast.error("Please sign in to update category");
       return;
@@ -103,9 +103,10 @@ const UpdateCategoryForm = ({ category }: UpdateCategoryFormProps) => {
             </DialogClose>
             <Button
               type="submit"
+              disabled={isPending}
               className="bg-orange-600 hover:bg-orange-600 shadow-lg py-4 rounded-md cursor-pointer"
             >
-              Update
+              {isPending ? "Updating..." : "Update"}
             </Button>
           </DialogFooter>
         </form>

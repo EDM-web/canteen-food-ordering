@@ -30,7 +30,7 @@ const ClientMenuItem = ({
         <img
           src={image}
           alt={name}
-          className="rounded-none w-full h-44 object-cover"
+          className="rounded-none w-full h-48 sm:h-44 object-cover"
         />
       ) : (
         <div className="flex justify-center items-center h-full text-gray-400 text-xs">
@@ -50,7 +50,7 @@ const ClientMenuItem = ({
           {/* <h3 className="font-bold text-gray-800 text-base line-clamp-1 leading-snug"> */}
           <Link
             href={menuDetailPath(id)}
-            className="font-bold text-slate-800 hover:text-orange-600 text-base line-clamp-1 leading-snug transition-colors"
+            className="font-bold text-slate-800 hover:text-orange-600 text-base line-clamp-1 transition-colors"
           >
             {name}
           </Link>

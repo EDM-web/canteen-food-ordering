@@ -55,7 +55,10 @@ const CategoryItem = async ({ id, name, isCard }: Props) => {
             }
           />
         )}
-        <UpdateCategoryForm category={{ id: id, name: name }} />
+        <UpdateCategoryForm
+          category={{ id: id, name: name }}
+          hasSession={!!session?.user}
+        />
       </CardContent>
     </Card>
   );

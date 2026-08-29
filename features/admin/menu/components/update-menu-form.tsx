@@ -29,22 +29,27 @@ interface Props {
   categoryId?: string;
   name: string;
   price: number;
+  hasSession?: boolean;
 }
 
-const UpdateMenuForm = ({ menuId, categoryId, name, price }: Props) => {
+const UpdateMenuForm = ({
+  menuId,
+  categoryId,
+  name,
+  price,
+  hasSession,
+}: Props) => {
   const router = useRouter();
   // const { data: session } = authClient.useSession();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [state, action] = useActionState(updateMenu, {
+  const [state, action, isPending] = useActionState(updateMenu, {
     message: "",
     success: false,
   });
 
-  const handleOpenChange = async (open: boolean) => {
-    const hasSession = await checkSession();
-
-    if (!hasSession) {
+  const handleOpenChange = (open: boolean) => {
+    if (open && !hasSession) {
       router.push(signInPath);
       toast.error("Please sign in to create a menu");
       return;
@@ -121,9 +126,10 @@ const UpdateMenuForm = ({ menuId, categoryId, name, price }: Props) => {
             </DialogClose>
             <Button
               type="submit"
+              disabled={isPending}
               className="bg-orange-600 hover:bg-orange-600 cursor-pointer"
             >
-              Update
+              {isPending ? "Updating..." : "Update"}
             </Button>
           </DialogFooter>
         </form>

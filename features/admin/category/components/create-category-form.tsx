@@ -18,24 +18,25 @@ import { useActionState, useEffect, useState } from "react";
 import { createCategory } from "../actions/create-category";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
 import { signInPath } from "@/lib/path";
 import { PlusIcon } from "lucide-react";
-import { checkSession } from "@/lib/session";
 
-const CreateCategoryForm = () => {
+interface Props {
+  hasSession: boolean;
+}
+
+const CreateCategoryForm = ({ hasSession }: Props) => {
   const router = useRouter();
-  // const { data: session } = authClient.useSession();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [state, action] = useActionState(createCategory, {
+  // isPending ကို ပါ ထုတ်ယူလိုက်ပါ
+  const [state, action, isPending] = useActionState(createCategory, {
     message: "",
     success: false,
   });
 
-  const handleOpenChange = async (open: boolean) => {
-    const hasSession = await checkSession();
-    if (!hasSession) {
+  const handleOpenChange = (open: boolean) => {
+    if (open && !hasSession) {
       router.push(signInPath);
       toast.error("Please sign in to create a category");
       return;
@@ -56,7 +57,6 @@ const CreateCategoryForm = () => {
 
   return (
     <Dialog onOpenChange={handleOpenChange} open={isOpen}>
-      {/* Trigger stays outside the form */}
       <DialogTrigger asChild className="w-fit">
         <Button
           variant="default"
@@ -67,7 +67,6 @@ const CreateCategoryForm = () => {
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-sm">
-        {/* Wrap form only around the content that needs to submit */}
         <form action={action} className="space-y-4">
           <DialogHeader>
             <DialogTitle>Create</DialogTitle>
@@ -77,7 +76,7 @@ const CreateCategoryForm = () => {
           <FieldGroup>
             <Field>
               <Label htmlFor="name">Name</Label>
-              <Input id="name" name="name" required />
+              <Input id="name" name="name" required disabled={isPending} />
             </Field>
           </FieldGroup>
 
@@ -87,15 +86,17 @@ const CreateCategoryForm = () => {
                 type="button"
                 variant="outline"
                 className="cursor-pointer"
+                disabled={isPending}
               >
                 Cancel
               </Button>
             </DialogClose>
             <Button
               type="submit"
+              disabled={isPending}
               className="bg-orange-600 hover:bg-orange-600 shadow-lg py-4 rounded-md cursor-pointer"
             >
-              Create
+              {isPending ? "Creating..." : "Create"}
             </Button>
           </DialogFooter>
         </form>

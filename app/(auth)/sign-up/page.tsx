@@ -58,7 +58,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="mx-2 my-8 min-h-[calc(100vh-4rem)]">
+    <div className="mx-2 my-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 bg-white shadow-xl border border-slate-100 rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden">
         {/* Left Column: Food Image */}
         <div className="hidden relative lg:flex flex-col justify-between bg-slate-900 p-10 min-h-[620px] text-white">
@@ -163,7 +163,7 @@ export default function SignUpPage() {
                 id="password"
                 name="password"
                 type="password"
-                placeholder="!example@157#"
+                placeholder="example@123#"
                 value={formData.password}
                 onChange={handleChange}
                 required
@@ -188,7 +188,7 @@ export default function SignUpPage() {
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
-                placeholder="!example@157#"
+                placeholder="example@123#"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 required

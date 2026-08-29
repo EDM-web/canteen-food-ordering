@@ -62,7 +62,7 @@ export default function SignInPage() {
   const isFormValid = signInSchema.safeParse(formData).success;
 
   return (
-    <div className="mx-2 my-8">
+    <div className="mx-2 my-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 bg-white shadow-xl border border-slate-100 rounded-xl sm:rounded-2xl lg:rounded-3xl w-full overflow-hidden">
         {/* Left Column: Food Image */}
         <div className="hidden relative lg:flex flex-col justify-between bg-slate-900 p-10 min-h-[550px] text-white">

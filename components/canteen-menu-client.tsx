@@ -117,7 +117,7 @@ export default function CanteenMenuClient({ categories, initialMenu }: Props) {
             No items available.
           </div>
         ) : (
-          <div className="gap-4 md:gap-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="gap-4 md:gap-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
             {filteredMenu.map((menu) => (
               <ClientMenuItem
                 key={menu.id}

@@ -40,7 +40,6 @@ const Navbar = async () => {
   const moblieNavItems = [
     { title: "Home", url: homePath, icon: Home },
     { title: "Menu", url: menuPath, icon: Utensils },
-    { title: "My Orders", url: orderPath, icon: ShoppingBag },
   ];
 
   return (
@@ -62,7 +61,7 @@ const Navbar = async () => {
                 <NavigationMenuItem key={nav.title}>
                   <Link
                     href={nav.url}
-                    className="px-3 py-2 rounded-md font-medium text-muted-foreground hover:text-orange-500 text-sm transition-colors"
+                    className="px-3 py-2 rounded-md font-medium text-slate-700 hover:text-orange-500 text-sm transition-colors"
                   >
                     {nav.title}
                   </Link>
@@ -74,7 +73,7 @@ const Navbar = async () => {
           <div className="flex items-center gap-4">
             {session && <CartIcon />}
             {session?.user ? (
-              <ProfileDropdown user={session.user} />
+              <ProfileDropdown isMoblie={false} user={session.user} />
             ) : (
               <SignUpAndSignInButtons />
             )}
@@ -82,22 +81,22 @@ const Navbar = async () => {
         </div>
 
         {/* Mobile Navigation Menu */}
-        <div className="md:hidden flex items-center gap-3">
+        <div className="md:hidden flex items-center gap-2">
           {/* Moblie register button  */}
           {!session && (
             <Button
               size={"lg"}
               variant={"default"}
-              className="bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 px-4 cursor-pointer"
+              className="bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 px-4 ring-0 cursor-pointer"
               asChild
             >
               <Link href={signUpPath}>Register</Link>
             </Button>
           )}
 
-          {session?.user && <ProfileDropdown user={session.user} />}
-
           {session && <CartIcon />}
+
+          {session?.user && <ProfileDropdown user={session.user} />}
 
           <Sheet>
             <SheetTrigger asChild>
@@ -126,13 +125,19 @@ const Navbar = async () => {
                       <Link
                         key={nav.title}
                         href={nav.url}
-                        className="flex items-center gap-3 hover:bg-orange-500/10 px-3 py-2.5 rounded-lg font-medium text-foreground hover:text-orange-500 text-sm transition-all"
+                        className="flex items-center gap-3 hover:bg-orange-500/10 px-3 py-2.5 rounded-lg font-medium text-slate-700 hover:text-orange-500 text-sm transition-all"
                       >
-                        <Icon className="w-4 h-4 text-muted-foreground" />
+                        <Icon className="w-5 h-5 text-slate-700" />
                         {nav.title}
                       </Link>
                     );
                   })}
+                  {session?.user && (
+                    <button className="flex items-center gap-3 hover:bg-orange-500/10 px-3 py-2.5 rounded-lg font-medium text-slate-700 hover:text-orange-500 text-sm transition-all">
+                      <ShoppingBag className="w-5 h-5 text-slate-700" />
+                      My Orders
+                    </button>
+                  )}
                   {session?.user && <MoblieProfile user={session?.user} />}
                 </nav>
               </div>
@@ -165,14 +170,14 @@ export const SignUpAndSignInButtons = ({
       <div className="flex flex-row gap-2">
         <Button
           variant={"secondary"}
-          className="flex-1 w-fit cursor-pointer"
+          className="flex-1 ring-0 w-fit cursor-pointer"
           asChild
         >
           <Link href={signInPath}>Signin</Link>
         </Button>
         <Button
           variant={"default"}
-          className="flex-1 bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 w-fit cursor-pointer"
+          className="flex-1 bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 ring-0 w-fit cursor-pointer"
           asChild
         >
           <Link href={signUpPath}>Register</Link>
@@ -189,7 +194,7 @@ export const SignUpAndSignInButtons = ({
       <Button
         size={"lg"}
         variant={"default"}
-        className="bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 px-4 cursor-pointer"
+        className="bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 px-4 ring-0 cursor-pointer"
         asChild
       >
         <Link href={signUpPath}>Register</Link>
@@ -205,7 +210,7 @@ const SignOutButton = () => {
         type="submit"
         className="flex items-center hover:bg-rose-500/10 px-3 py-2.5 rounded-lg w-full text-rose-600 text-sm cursor-pointer"
       >
-        <LogOut className="mr-2 w-4 h-4" />
+        <LogOut className="mr-2 w-5 h-5" />
         <span>Sign Out</span>
       </button>
     </form>

@@ -22,10 +22,10 @@ interface UserNavProps {
     email?: string | null;
     image?: string | null;
   };
-  isMoblietype?: boolean;
+  isMoblie?: boolean;
 }
 
-export function ProfileDropdown({ user, isMoblietype = true }: UserNavProps) {
+export function ProfileDropdown({ user, isMoblie = true }: UserNavProps) {
   const [openProfile, setOpenProfile] = useState(false);
 
   const userInitials = user.name
@@ -36,21 +36,37 @@ export function ProfileDropdown({ user, isMoblietype = true }: UserNavProps) {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="flex items-center gap-2 hover:bg-slate-100 px-2.5 py-1.5 rounded-full h-auto cursor-pointer"
-          >
-            <Avatar className="w-8 h-8">
-              <AvatarImage src={user.image || ""} alt={user.name || "User"} />
-              <AvatarFallback className="bg-orange-500 font-semibold text-white text-xs">
-                {userInitials}
-              </AvatarFallback>
-            </Avatar>
-            <span className="max-w-[120px] font-medium text-slate-700 text-sm truncate">
-              {user.name}
-            </span>
-            <ChevronDown className="w-4 h-4 text-slate-500" />
-          </Button>
+          {isMoblie ? (
+            <Button
+              variant="ghost"
+              className="flex items-center gap-2 hover:bg-slate-100 px-2.5 py-1.5 rounded-full h-auto cursor-pointer"
+            >
+              <Avatar className="w-8 h-8">
+                <AvatarImage src={user.image || ""} alt={user.name || "User"} />
+                <AvatarFallback className="bg-orange-500 font-semibold text-white text-xs">
+                  {userInitials}
+                </AvatarFallback>
+              </Avatar>
+
+              <ChevronDown className="w-4 h-4 text-slate-500" />
+            </Button>
+          ) : (
+            <Button
+              variant="ghost"
+              className="flex items-center gap-2 hover:bg-slate-100 px-2.5 py-1.5 rounded-full h-auto cursor-pointer"
+            >
+              <Avatar className="w-8 h-8">
+                <AvatarImage src={user.image || ""} alt={user.name || "User"} />
+                <AvatarFallback className="bg-orange-500 font-semibold text-white text-xs">
+                  {userInitials}
+                </AvatarFallback>
+              </Avatar>
+              <span className="max-w-[120px] font-medium text-slate-700 text-sm truncate">
+                {user.name}
+              </span>
+              <ChevronDown className="w-4 h-4 text-slate-500" />
+            </Button>
+          )}
         </DropdownMenuTrigger>
 
         <DropdownMenuContent

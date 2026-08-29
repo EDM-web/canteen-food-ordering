@@ -11,7 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { OrderStatusBadge } from "@/components/order-status-badge";
-import { orderDetailPath } from "@/lib/path";
+import { menuPath, orderDetailPath } from "@/lib/path";
 import { PaymentStatusBadge } from "@/components/payment-status-badge";
 import { ExternalLink, ShoppingBag, Utensils } from "lucide-react";
 import { protectUserRoute } from "@/lib/auth-guard";
@@ -37,7 +37,7 @@ export default async function OrderHistoryPage() {
           </p> */}
         </div>
         <Button asChild variant="outline">
-          <Link href="/">
+          <Link href={menuPath}>
             <ShoppingBag className="mr-2 w-4 h-4 text-orange-500" /> Order More
           </Link>
         </Button>
@@ -48,8 +48,8 @@ export default async function OrderHistoryPage() {
           <p className="text-muted-foreground text-sm">
             You haven't placed any orders yet.
           </p>
-          <Button asChild className="bg-orange-600 hover:bg-orange-700">
-            <Link href="/">Browse Menu</Link>
+          <Button asChild className="bg-orange-500 hover:bg-orange-600">
+            <Link href={menuPath}>Browse Menu</Link>
           </Button>
         </div>
       ) : (

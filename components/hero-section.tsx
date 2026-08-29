@@ -25,7 +25,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative flex items-center bg-slate-900 shadow-2xl shadow-orange-500/10 border border-orange-500/20 rounded-3xl min-h-[360px] sm:min-h-[440px] overflow-hidden text-white">
+    <section className="relative flex items-center bg-slate-800 shadow-2xl shadow-orange-500/10 border-orange-500/20 border-none rounded-3xl min-h-[360px] sm:min-h-[440px] overflow-hidden text-white">
       {/* Background Images with Crossfade */}
       {HERO_IMAGES.map((src, index) => (
         <Image
@@ -56,7 +56,7 @@ export function HeroSection() {
         <h1 className="font-black text-3xl sm:text-5xl leading-tight tracking-tight">
           Order Fresh & <br />
           <span className="bg-clip-text bg-gradient-to-r from-orange-400 via-amber-400 to-orange-500 text-transparent">
-            Delicious Meals
+            Delicious Foods
           </span>
         </h1>
 
@@ -80,7 +80,7 @@ export function HeroSection() {
         </div>
 
         {/* Info Badges */}
-        <div className="flex items-center gap-6 pt-4 text-slate-300 text-xs">
+        {/* <div className="flex items-center gap-6 pt-4 text-slate-300 text-xs">
           <div className="flex items-center gap-2">
             <Clock className="w-4 h-4 text-orange-400" />
             <span>8:00 AM - 4:00 PM</span>
@@ -89,7 +89,7 @@ export function HeroSection() {
             <UtensilsCrossed className="w-4 h-4 text-amber-400" />
             <span>Freshly Prepared Daily</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

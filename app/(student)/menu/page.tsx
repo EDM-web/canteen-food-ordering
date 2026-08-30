@@ -28,7 +28,7 @@ interface PageProps {
 }
 
 const AllMenuPage = async ({ searchParams }: PageProps) => {
-  await protectUserRoute();
+  const session = await protectUserRoute();
 
   const resolvedParams = await searchParams;
   const searchQuery = resolvedParams?.search;
@@ -38,7 +38,11 @@ const AllMenuPage = async ({ searchParams }: PageProps) => {
 
   return (
     <div className="space-y-6">
-      <CanteenMenuClient categories={categories} initialMenu={allMenu} />
+      <CanteenMenuClient
+        categories={categories}
+        initialMenu={allMenu}
+        hasSession={!!session?.user}
+      />
     </div>
   );
 };

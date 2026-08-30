@@ -73,17 +73,93 @@ export default function DashboardTable({
               No orders received today yet.
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left">
+            // <div className="overflow-x-auto">
+            //   <table className="w-full text-sm text-left whitespace-nowrap">
+            //     <thead className="bg-slate-50/80 border-slate-200 border-b font-semibold text-slate-600 text-xs uppercase">
+            //       <tr>
+            //         <th className="p-4">Order ID</th>
+            //         <th className="p-4">Customer</th>
+            //         <th className="p-4">Items</th>
+            //         <th className="p-4">Total Amount</th>
+            //         <th className="p-4">Order Status</th>
+            //         <th className="p-4">Payment</th>
+            //         <th className="p-4">Action</th>
+            //       </tr>
+            //     </thead>
+            //     <tbody className="divide-y divide-slate-100">
+            //       {todayOrders.map((order) => (
+            //         <tr
+            //           key={order.id}
+            //           className="hover:bg-slate-50/50 transition-colors"
+            //         >
+            //           <td className="p-4 font-mono font-medium text-xs">
+            //             #{order.id.slice(-6).toUpperCase()}
+            //           </td>
+            //           <td className="p-4 font-medium text-slate-800">
+            //             {order.user?.name || order.user?.email || "Guest User"}
+            //           </td>
+            //           {/* <td className="p-4 max-w-xs text-slate-600 truncate">
+            //             {order.orderItems
+            //               .map(
+            //                 (item) =>
+            //                   `${item.quantity} ${
+            //                     item.quantity === 1 ? "Item" : "Items"
+            //                   }`
+            //               )
+            //               .join(", ")}
+            //           </td> */}
+            //           <td className="p-4 max-w-xs text-slate-600 truncate">
+            //             {(() => {
+            //               const totalQuantity = order.orderItems.reduce(
+            //                 (acc, item) => acc + item.quantity,
+            //                 0
+            //               );
+            //               return `${totalQuantity} ${
+            //                 totalQuantity === 1 ? "Item" : "Items"
+            //               }`;
+            //             })()}
+            //           </td>
+            //           <td className="p-4 font-semibold text-orange-600">
+            //             {order.totalAmount.toLocaleString()} MMK
+            //           </td>
+            //           <td className="p-4">
+            //             <OrderStatusSelect
+            //               orderId={order.id}
+            //               currentStatus={order.status}
+            //             />
+            //           </td>
+            //           <td className="p-4">
+            //             <PaymentStatusSelect
+            //               orderId={order.id}
+            //               currentStatus={order.paymentStatus}
+            //               orderStatus={order.status}
+            //             />
+            //           </td>
+            //           <td className="flex items-center gap-2 p-4">
+            //             <Button asChild size="sm" variant="outline">
+            //               <Link href={orderDetailPath(order.id)}>
+            //                 Details{" "}
+            //                 <ExternalLink className="ml-1 w-3.5 h-3.5" />
+            //               </Link>
+            //             </Button>
+            //             <OrderDetailsSheet order={order} />
+            //           </td>
+            //         </tr>
+            //       ))}
+            //     </tbody>
+            //   </table>
+            // </div>
+            <div className="border border-slate-200 rounded-lg overflow-x-auto">
+              <table className="w-full text-sm text-left whitespace-nowrap">
                 <thead className="bg-slate-50/80 border-slate-200 border-b font-semibold text-slate-600 text-xs uppercase">
                   <tr>
                     <th className="p-4">Order ID</th>
                     <th className="p-4">Customer</th>
-                    <th className="p-4">Items</th>
-                    <th className="p-4">Total Amount</th>
-                    <th className="p-4">Order Status</th>
-                    <th className="p-4">Payment</th>
-                    <th className="p-4">Action</th>
+                    <th className="p-4 text-center">Items</th>
+                    <th className="p-4 text-right">Total Amount</th>
+                    <th className="p-4 text-center">Order Status</th>
+                    <th className="p-4 text-center">Payment</th>
+                    <th className="p-4 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -92,23 +168,13 @@ export default function DashboardTable({
                       key={order.id}
                       className="hover:bg-slate-50/50 transition-colors"
                     >
-                      <td className="p-4 font-mono font-medium text-xs">
+                      <td className="p-4 font-mono font-medium text-xs align-middle">
                         #{order.id.slice(-6).toUpperCase()}
                       </td>
-                      <td className="p-4 font-medium text-slate-800">
+                      <td className="p-4 font-medium text-slate-800 align-middle">
                         {order.user?.name || order.user?.email || "Guest User"}
                       </td>
-                      {/* <td className="p-4 max-w-xs text-slate-600 truncate">
-                        {order.orderItems
-                          .map(
-                            (item) =>
-                              `${item.quantity} ${
-                                item.quantity === 1 ? "Item" : "Items"
-                              }`
-                          )
-                          .join(", ")}
-                      </td> */}
-                      <td className="p-4 max-w-xs text-slate-600 truncate">
+                      <td className="p-4 text-slate-600 text-center align-middle">
                         {(() => {
                           const totalQuantity = order.orderItems.reduce(
                             (acc, item) => acc + item.quantity,
@@ -119,30 +185,32 @@ export default function DashboardTable({
                           }`;
                         })()}
                       </td>
-                      <td className="p-4 font-semibold text-orange-600">
+                      <td className="p-4 font-semibold text-orange-600 text-right align-middle">
                         {order.totalAmount.toLocaleString()} MMK
                       </td>
-                      <td className="p-4">
+                      <td className="p-4 text-center align-middle">
                         <OrderStatusSelect
                           orderId={order.id}
                           currentStatus={order.status}
                         />
                       </td>
-                      <td className="p-4">
+                      <td className="p-4 text-center align-middle">
                         <PaymentStatusSelect
                           orderId={order.id}
                           currentStatus={order.paymentStatus}
                           orderStatus={order.status}
                         />
                       </td>
-                      <td className="flex gap-2 py-4 text-left">
-                        <Button asChild size="sm" variant="outline">
-                          <Link href={orderDetailPath(order.id)}>
-                            Details{" "}
-                            <ExternalLink className="ml-1 w-3.5 h-3.5" />
-                          </Link>
-                        </Button>
-                        <OrderDetailsSheet order={order} />
+                      <td className="p-4 text-center align-middle">
+                        <div className="flex gap-2">
+                          <Button asChild size="sm" variant="outline">
+                            <Link href={orderDetailPath(order.id)}>
+                              Details{" "}
+                              <ExternalLink className="ml-1 w-3.5 h-3.5" />
+                            </Link>
+                          </Button>
+                          <OrderDetailsSheet order={order} />
+                        </div>
                       </td>
                     </tr>
                   ))}

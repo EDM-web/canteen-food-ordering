@@ -110,15 +110,17 @@ export default async function AdminOrdersPage() {
                         />
                       </TableCell>
 
-                      <TableCell className="flex gap-2 py-4">
-                        <Button asChild size="sm" variant="outline">
-                          <Link href={`/admin/dashboard/orders/${order.id}`}>
-                            Details{" "}
-                            <ExternalLink className="ml-1 w-3.5 h-3.5" />
-                          </Link>
-                        </Button>
+                      <TableCell>
+                        <div className="flex gap-2 py-4">
+                          <Button asChild size="sm" variant="outline">
+                            <Link href={`/admin/dashboard/orders/${order.id}`}>
+                              Details{" "}
+                              <ExternalLink className="ml-1 w-3.5 h-3.5" />
+                            </Link>
+                          </Button>
 
-                        <OrderDetailsSheet order={order} />
+                          <OrderDetailsSheet order={order} />
+                        </div>
                       </TableCell>
                     </TableRow>
                   );

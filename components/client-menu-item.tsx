@@ -52,7 +52,7 @@ const ClientMenuItem = ({
           {/* <h3 className="font-bold text-gray-800 text-base line-clamp-1 leading-snug"> */}
           <Link
             href={menuDetailPath(id)}
-            className="font-bold text-slate-800 hover:text-orange-600 text-base line-clamp-1 transition-colors"
+            className="font-bold text-slate-800 hover:text-orange-600 text-base line-clamp-1 leading-loose transition-colors"
           >
             {name}
           </Link>

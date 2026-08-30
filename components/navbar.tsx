@@ -133,10 +133,13 @@ const Navbar = async () => {
                     );
                   })}
                   {session?.user && (
-                    <button className="flex items-center gap-3 hover:bg-orange-500/10 px-3 py-2.5 rounded-lg font-medium text-slate-700 hover:text-orange-500 text-sm transition-all">
+                    <Link
+                      href={orderPath}
+                      className="flex items-center gap-3 hover:bg-orange-500/10 px-3 py-2.5 rounded-lg font-medium text-slate-700 hover:text-orange-500 text-sm transition-all"
+                    >
                       <ShoppingBag className="w-5 h-5 text-slate-700" />
                       My Orders
-                    </button>
+                    </Link>
                   )}
                   {session?.user && <MoblieProfile user={session?.user} />}
                 </nav>

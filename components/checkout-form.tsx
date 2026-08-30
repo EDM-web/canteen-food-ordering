@@ -44,7 +44,7 @@ export default function CheckOutForm({ userId }: { userId: string }) {
 
   if (cart.length === 0) {
     return (
-      <div className="space-y-4 mx-auto p-8 max-w-md h-screen text-center container">
+      <div className="flex flex-col justify-center items-center space-y-4 mx-auto p-8 max-w-md h-[80vh] text-center container">
         <h1 className="font-bold text-orange-500 text-2xl">
           Your Cart is Empty
         </h1>

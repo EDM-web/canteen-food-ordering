@@ -45,6 +45,7 @@ const CategoryItem = async ({ id, name, isCard }: Props) => {
           <CreateMenuForm
             categoryId={id}
             categoryName={name}
+            hasSession={!!session?.user}
             trigger={
               <Button
                 size="sm"

@@ -33,7 +33,10 @@ const CategoryDetailPage = async ({ params }: Props) => {
               Back to Categories
             </Button>
           </Link>
-          <CreateMenuForm categoryId={categoryId} />
+          <CreateMenuForm
+            categoryId={categoryId}
+            hasSession={!!session?.user}
+          />
         </div>
 
         <CategoryMenuList categoryId={categoryId} />

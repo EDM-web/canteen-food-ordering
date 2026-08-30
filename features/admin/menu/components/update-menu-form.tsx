@@ -20,9 +20,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { signInPath } from "@/lib/path";
-import { createMenu } from "../actions/create-menu";
 import { updateMenu } from "../actions/update-menu";
-import { checkSession } from "@/lib/session";
 
 interface Props {
   menuId: string;
@@ -40,7 +38,6 @@ const UpdateMenuForm = ({
   hasSession,
 }: Props) => {
   const router = useRouter();
-  // const { data: session } = authClient.useSession();
 
   const [isOpen, setIsOpen] = useState(false);
   const [state, action, isPending] = useActionState(updateMenu, {

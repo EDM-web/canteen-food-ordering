@@ -58,7 +58,7 @@ const MenuItem = async ({
             </div>
             <Link
               href={adminMenuDetailPath(id)}
-              className="font-semibold text-slate-900 hover:text-orange-600 line-clamp-1 transition-colors"
+              className="font-normal text-slate-700 hover:text-orange-600 line-clamp-1 leading-loose transition-colors"
             >
               {name}
             </Link>
@@ -122,7 +122,7 @@ const MenuItem = async ({
               {categoryName}
             </p>
           )}
-          <h3 className="font-bold text-gray-800 text-base line-clamp-1">
+          <h3 className="font-normal text-gray-700 text-base line-clamp-1">
             {name}
           </h3>
         </div>

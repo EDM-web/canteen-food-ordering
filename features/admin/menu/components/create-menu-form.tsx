@@ -109,7 +109,7 @@ const CreateMenuForm = ({
             <DialogTitle>Create Menu Item</DialogTitle>
             <DialogDescription>
               Add a new menu{" "}
-              {categoryName ? `to ${categoryName}` : "item to your menu list"}
+              {categoryName ? `to ${categoryName}` : "to your menu list"}
             </DialogDescription>
           </DialogHeader>
 

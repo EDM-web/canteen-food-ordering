@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { adminMenuPath } from "@/lib/path";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -30,8 +31,21 @@ export default async function MenuDetailPage({ params }: Props) {
 
   if (!menuItem) {
     return (
-      <div className="p-12 font-medium text-red-500 text-center">
-        Menu item not found
+      <div className="space-y-6">
+        <Button
+          asChild
+          variant="ghost"
+          size="sm"
+          className="text-muted-foreground hover:text-orange-600"
+        >
+          <Link href="/admin/dashboard/menu">
+            <ArrowLeft className="mr-2 w-4 h-4" /> Back to All Menu
+          </Link>
+        </Button>
+
+        <div className="bg-white py-12 border border-slate-200 rounded-xl text-slate-500 text-center">
+          No menu found
+        </div>
       </div>
     );
   }
@@ -49,7 +63,7 @@ export default async function MenuDetailPage({ params }: Props) {
         </Link>
       </Button>
 
-      <Card className="bg-white shadow-sm p-6 border rounded-xl">
+      <Card className="bg-white shadow-sm p-6 border rounded-xl ring-0">
         <div className="items-start gap-8 grid md:grid-cols-2">
           {/* Image Container */}
           <div className="relative flex justify-center items-center bg-slate-50 border rounded-lg w-full aspect-square overflow-hidden">

@@ -15,6 +15,7 @@ interface AddToCartButtonProps {
   price: number;
   image?: string;
   imageUrl?: string;
+  hasSession?: boolean;
 }
 
 export function AddToCartButton({
@@ -24,19 +25,13 @@ export function AddToCartButton({
   price,
   image,
   imageUrl,
+  hasSession,
 }: AddToCartButtonProps) {
   const { addToCart } = useCart();
   const router = useRouter();
 
-  // Better-Auth (သို့မဟုတ် သင်သုံးထားသော Auth Library) မှ Session ယူခြင်း
-  const { data: session, isPending } = authClient.useSession();
-
   const handleAddToCart = () => {
-    // ၁။ Session Loading ဖြစ်နေစဉ် နှိပ်ပါက မလိုလားအပ်သည်များ မဖြစ်အောင် တားဆီးခြင်း
-    if (isPending) return;
-
-    // ၂။ Session / User မရှိပါက Toast ပြပြီး Sign-in Page သို့ လမ်းကြောင်းလွှဲခြင်း
-    if (!session?.user) {
+    if (!hasSession) {
       toast.error("Please sign in to add items to your cart");
       router.push(signInPath);
       return;
@@ -49,23 +44,13 @@ export function AddToCartButton({
 
   return (
     <>
-      {paramId ? (
-        <Button
-          onClick={handleAddToCart}
-          // disabled={isPending}
-          className="bg-orange-100/50 hover:bg-orange-100 shadow-none px-6 py-2.5 border-none rounded-md h-auto font-semibold text-orange-500 text-xs transition-colors cursor-pointer"
-        >
-          <PlusIcon /> {isPending ? "Add to cart" : "Add to cart"}
-        </Button>
-      ) : (
-        <Button
-          onClick={handleAddToCart}
-          // disabled={isPending}
-          className="bg-orange-100/50 hover:bg-orange-100 shadow-none px-2 py-1.5 border-none rounded-md h-auto font-semibold text-orange-500 text-xs transition-colors cursor-pointer"
-        >
-          <PlusIcon /> {isPending ? "Add" : "Add"}
-        </Button>
-      )}
+      <Button
+        onClick={handleAddToCart}
+        // disabled={isPending}
+        className="bg-orange-100/50 hover:bg-orange-100 shadow-none px-6 py-2.5 border-none rounded-md h-auto font-semibold text-orange-500 text-xs transition-colors cursor-pointer"
+      >
+        <PlusIcon /> {paramId ? "Add to Cart" : "Add"}
+      </Button>
     </>
   );
 }

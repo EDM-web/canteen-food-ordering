@@ -25,9 +25,14 @@ interface MenuItemData {
 interface Props {
   categories: Category[];
   initialMenu: MenuItemData[];
+  hasSession?: boolean;
 }
 
-export default function CanteenMenuClient({ categories, initialMenu }: Props) {
+export default function CanteenMenuClient({
+  categories,
+  initialMenu,
+  hasSession,
+}: Props) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   // 2. URL Params ထဲမှ search တန်ဖိုးကို ယူပါ
@@ -128,6 +133,7 @@ export default function CanteenMenuClient({ categories, initialMenu }: Props) {
                 categoryName={menu.category.name}
                 categoryId={menu.categoryId}
                 isAvailable={menu.isAvailable}
+                hasSession={hasSession}
               />
             ))}
           </div>

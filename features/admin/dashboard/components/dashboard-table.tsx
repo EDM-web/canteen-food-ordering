@@ -14,6 +14,14 @@ import MenuItem from "../../menu/components/menu-item";
 import { orderDetailPath } from "@/lib/path";
 import { OrderDetailsSheet } from "../../order/components/order-details-sheet";
 import { Order } from "@/lib/type";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface MenuItem {
   id: string;
@@ -27,9 +35,14 @@ interface MenuItem {
 interface Props {
   todayOrders: Order[];
   allMenuItems: MenuItem[];
+  hasSession?: boolean;
 }
 
-export default function DashboardTable({ todayOrders, allMenuItems }: Props) {
+export default function DashboardTable({
+  todayOrders,
+  allMenuItems,
+  hasSession,
+}: Props) {
   const [filterStatus, setFilterStatus] = useState<
     "ALL" | "AVAILABLE" | "UNAVAILABLE"
   >("ALL");
@@ -141,7 +154,7 @@ export default function DashboardTable({ todayOrders, allMenuItems }: Props) {
       </section>
 
       {/* 2. Menu Items Table with Filter */}
-      <section className="space-y-4">
+      {/* <section className="space-y-4">
         <div className="flex sm:flex-row flex-col justify-between sm:items-center gap-3">
           <h2 className="font-bold text-slate-700 text-xl tracking-tight">
             Menu Items List
@@ -199,15 +212,7 @@ export default function DashboardTable({ todayOrders, allMenuItems }: Props) {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {/* {filteredMenuItems.map((item) => (
-                    <MenuItem
-                      id={item.id}
-                      name={item.name}
-                      price={item.price}
-                      categoryId={item.category.id}
-                      categoryName={item.category.name}
-                    />
-                  ))} */}
+                  
                   {filteredMenuItems.map((item) => (
                     <tr
                       key={item.id}
@@ -222,7 +227,6 @@ export default function DashboardTable({ todayOrders, allMenuItems }: Props) {
                                 alt={item.name}
                                 className="w-full h-full object-cover"
                                 onError={(e) => {
-                                  // ပုံ load ရာတွင် error တက်ပါက သို့မဟုတ် broken link ဖြစ်ပါက fallback သို့ ပြောင်းပါသည်
                                   e.currentTarget.style.display = "none";
                                   e.currentTarget.parentElement
                                     ?.querySelector(".fallback-icon")
@@ -238,7 +242,9 @@ export default function DashboardTable({ todayOrders, allMenuItems }: Props) {
                               }`}
                             />
                           </div>
-                          <span>{item.name}</span>
+                          <span className="font-normal text-slate-700 line-clamp-1 leading-loose">
+                            {item.name}
+                          </span>
                         </div>
                       </td>
                       <td className="p-4 text-slate-600">
@@ -259,6 +265,7 @@ export default function DashboardTable({ todayOrders, allMenuItems }: Props) {
                           menuId={item.id}
                           name={item.name}
                           price={item.price}
+                          hasSession={hasSession}
                         />
                       </td>
                     </tr>
@@ -268,242 +275,137 @@ export default function DashboardTable({ todayOrders, allMenuItems }: Props) {
             </div>
           )}
         </div>
+      </section> */}
+
+      {/* 2. Menu Items Table with Filter */}
+      <section className="space-y-4">
+        <div className="flex sm:flex-row flex-col justify-between sm:items-center gap-3">
+          <h2 className="font-bold text-slate-700 text-xl tracking-tight">
+            Menu Items List
+          </h2>
+
+          <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl w-fit">
+            <button
+              onClick={() => setFilterStatus("ALL")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                filterStatus === "ALL"
+                  ? "bg-white text-slate-900 shadow-sm"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              All
+            </button>
+            <button
+              onClick={() => setFilterStatus("AVAILABLE")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                filterStatus === "AVAILABLE"
+                  ? "bg-white text-emerald-600 shadow-sm"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Available
+            </button>
+            <button
+              onClick={() => setFilterStatus("UNAVAILABLE")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                filterStatus === "UNAVAILABLE"
+                  ? "bg-white text-rose-600 shadow-sm"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              Unavailable
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-white shadow-sm border border-slate-200/80 rounded-2xl overflow-hidden">
+          {filteredMenuItems.length === 0 ? (
+            <div className="p-8 text-slate-500 text-sm text-center">
+              No menu items found for this filter.
+            </div>
+          ) : (
+            <Table className="w-full text-sm text-left">
+              <TableHeader className="bg-slate-50/80 border-slate-200 border-b font-semibold text-slate-600 text-xs uppercase">
+                <TableRow className="hover:bg-transparent">
+                  <TableHead className="p-4 h-auto font-semibold text-slate-600">
+                    Item Name
+                  </TableHead>
+                  <TableHead className="p-4 h-auto font-semibold text-slate-600">
+                    Category
+                  </TableHead>
+                  <TableHead className="p-4 h-auto font-semibold text-slate-600">
+                    Price
+                  </TableHead>
+                  <TableHead className="p-4 h-auto font-semibold text-slate-600">
+                    Availability
+                  </TableHead>
+                  <TableHead className="p-4 h-auto font-semibold text-slate-600">
+                    Action
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody className="divide-y divide-slate-100">
+                {filteredMenuItems.map((item) => (
+                  <TableRow
+                    key={item.id}
+                    className="hover:bg-slate-50/50 border-b-0 transition-colors"
+                  >
+                    <TableCell className="p-4 font-medium text-slate-800">
+                      <div className="flex items-center gap-3">
+                        <div className="relative flex justify-center items-center bg-slate-100 border border-slate-200/80 rounded-lg w-10 h-10 overflow-hidden shrink-0">
+                          {item.imageUrl && item.imageUrl.trim() !== "" ? (
+                            <img
+                              src={item.imageUrl}
+                              alt={item.name}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.currentTarget.style.display = "none";
+                                e.currentTarget.parentElement
+                                  ?.querySelector(".fallback-icon")
+                                  ?.classList.remove("hidden");
+                              }}
+                            />
+                          ) : null}
+                          <Utensils
+                            className={`w-4 h-4 text-slate-400 fallback-icon ${
+                              item.imageUrl && item.imageUrl.trim() !== ""
+                                ? "hidden"
+                                : ""
+                            }`}
+                          />
+                        </div>
+                        <span className="font-normal text-slate-700 line-clamp-1 leading-loose">
+                          {item.name}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell className="p-4 text-slate-600">
+                      {item.category?.name || "-"}
+                    </TableCell>
+                    <TableCell className="p-4 font-semibold text-orange-600">
+                      {item.price.toLocaleString()} MMK
+                    </TableCell>
+                    <TableCell className="p-4">
+                      <ToggleAvailability
+                        id={item.id}
+                        isAvailable={item.isAvailable}
+                      />
+                    </TableCell>
+                    <TableCell className="p-4">
+                      <UpdateMenuForm
+                        menuId={item.id}
+                        name={item.name}
+                        price={item.price}
+                        hasSession={hasSession}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </div>
       </section>
     </div>
   );
 }
-
-// "use client";
-
-// import { useState } from "react";
-// import { Badge } from "@/components/ui/badge";
-// import { OrderStatus } from "@/generated/prisma/enums";
-// import { OrderStatusBadge } from "@/components/order-status-badge";
-
-// interface TodayOrder {
-//   id: string;
-//   totalAmount: number;
-//   status: OrderStatus; // string မှ OrderStatus သို့ ပြောင်းထားပါသည်
-//   createdAt: Date;
-//   user: { name: string | null; email: string };
-//   orderItems: { menuItem: { name: string }; quantity: number }[];
-// }
-
-// interface MenuItem {
-//   id: string;
-//   name: string;
-//   price: number;
-//   isAvailable: boolean;
-//   category: { name: string };
-// }
-
-// interface Props {
-//   todayOrders: TodayOrder[];
-//   allMenuItems: MenuItem[];
-// }
-
-// export default function DashboardTable({ todayOrders, allMenuItems }: Props) {
-//   const [filterStatus, setFilterStatus] = useState<
-//     "ALL" | "AVAILABLE" | "UNAVAILABLE"
-//   >("ALL");
-
-//   // Menu Items Filter Logic
-//   const filteredMenuItems = allMenuItems.filter((item) => {
-//     if (filterStatus === "AVAILABLE") return item.isAvailable;
-//     if (filterStatus === "UNAVAILABLE") return !item.isAvailable;
-//     return true;
-//   });
-
-//   const getStatusBadge = (status: string) => {
-//     switch (status) {
-//       case "PENDING":
-//         return (
-//           <Badge className="bg-amber-100 hover:bg-amber-100 border-none text-amber-700">
-//             Pending
-//           </Badge>
-//         );
-//       case "PREPARING":
-//         return (
-//           <Badge className="bg-blue-100 hover:bg-blue-100 border-none text-blue-700">
-//             Preparing
-//           </Badge>
-//         );
-//       case "COMPLETED":
-//         return (
-//           <Badge className="bg-emerald-100 hover:bg-emerald-100 border-none text-emerald-700">
-//             Completed
-//           </Badge>
-//         );
-//       case "CANCELLED":
-//         return (
-//           <Badge className="bg-rose-100 hover:bg-rose-100 border-none text-rose-700">
-//             Cancelled
-//           </Badge>
-//         );
-//       default:
-//         return <Badge>{status}</Badge>;
-//     }
-//   };
-
-//   return (
-//     <div className="space-y-10">
-//       {/* 1. Today's Orders Table */}
-//       <section className="space-y-4">
-//         <div className="flex justify-between items-center">
-//           <h2 className="font-bold text-slate-800 text-xl tracking-tight">
-//             Today's Orders
-//           </h2>
-//           <span className="font-medium text-slate-500 text-xs">
-//             Total: {todayOrders.length} orders
-//           </span>
-//         </div>
-
-//         <div className="bg-white shadow-sm border border-slate-200/80 rounded-2xl overflow-hidden">
-//           {todayOrders.length === 0 ? (
-//             <div className="p-8 text-slate-500 text-sm text-center">
-//               No orders received today yet.
-//             </div>
-//           ) : (
-//             <div className="overflow-x-auto">
-//               <table className="w-full text-sm text-left">
-//                 <thead className="bg-slate-50/80 border-slate-200 border-b font-semibold text-slate-600 text-xs uppercase">
-//                   <tr>
-//                     <th className="p-4">Customer</th>
-//                     <th className="p-4">Items</th>
-//                     <th className="p-4">Total Amount</th>
-//                     <th className="p-4">Status</th>
-//                     <th className="p-4">Time</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody className="divide-y divide-slate-100">
-//                   {todayOrders.map((order) => (
-//                     <tr
-//                       key={order.id}
-//                       className="hover:bg-slate-50/50 transition-colors"
-//                     >
-//                       <td className="p-4 font-medium text-slate-800">
-//                         {order.user.name || order.user.email}
-//                       </td>
-//                       <td className="p-4 max-w-xs text-slate-600 truncate">
-//                         {order.orderItems
-//                           .map(
-//                             (item) => `${item.menuItem.name} (${item.quantity})`
-//                           )
-//                           .join(", ")}
-//                       </td>
-//                       <td className="p-4 font-semibold text-slate-900">
-//                         {order.totalAmount.toLocaleString()} MMK
-//                       </td>
-//                       <td className="p-4">
-//                         <OrderStatusBadge status={order.status} />
-//                       </td>
-//                       <td className="p-4 text-slate-500 text-xs">
-//                         {new Date(order.createdAt).toLocaleTimeString([], {
-//                           hour: "2-digit",
-//                           minute: "2-digit",
-//                         })}
-//                       </td>
-//                     </tr>
-//                   ))}
-//                 </tbody>
-//               </table>
-//             </div>
-//           )}
-//         </div>
-//       </section>
-
-//       {/* 2. Menu Items Table with Filter */}
-//       <section className="space-y-4">
-//         <div className="flex sm:flex-row flex-col justify-between sm:items-center gap-3">
-//           <h2 className="font-bold text-slate-800 text-xl tracking-tight">
-//             Menu Items List
-//           </h2>
-
-//           {/* Filter Buttons */}
-//           <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl w-fit">
-//             <button
-//               onClick={() => setFilterStatus("ALL")}
-//               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-//                 filterStatus === "ALL"
-//                   ? "bg-white text-slate-900 shadow-sm"
-//                   : "text-slate-600 hover:text-slate-900"
-//               }`}
-//             >
-//               All ({allMenuItems.length})
-//             </button>
-//             <button
-//               onClick={() => setFilterStatus("AVAILABLE")}
-//               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-//                 filterStatus === "AVAILABLE"
-//                   ? "bg-white text-emerald-600 shadow-sm"
-//                   : "text-slate-600 hover:text-slate-900"
-//               }`}
-//             >
-//               Available
-//             </button>
-//             <button
-//               onClick={() => setFilterStatus("UNAVAILABLE")}
-//               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-//                 filterStatus === "UNAVAILABLE"
-//                   ? "bg-white text-rose-600 shadow-sm"
-//                   : "text-slate-600 hover:text-slate-900"
-//               }`}
-//             >
-//               Unavailable
-//             </button>
-//           </div>
-//         </div>
-
-//         <div className="bg-white shadow-sm border border-slate-200/80 rounded-2xl overflow-hidden">
-//           {filteredMenuItems.length === 0 ? (
-//             <div className="p-8 text-slate-500 text-sm text-center">
-//               No menu items found for this filter.
-//             </div>
-//           ) : (
-//             <div className="overflow-x-auto">
-//               <table className="w-full text-sm text-left">
-//                 <thead className="bg-slate-50/80 border-slate-200 border-b font-semibold text-slate-600 text-xs uppercase">
-//                   <tr>
-//                     <th className="p-4">Item Name</th>
-//                     <th className="p-4">Category</th>
-//                     <th className="p-4">Price</th>
-//                     <th className="p-4">Availability</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody className="divide-y divide-slate-100">
-//                   {filteredMenuItems.map((item) => (
-//                     <tr
-//                       key={item.id}
-//                       className="hover:bg-slate-50/50 transition-colors"
-//                     >
-//                       <td className="p-4 font-medium text-slate-800">
-//                         {item.name}
-//                       </td>
-//                       <td className="p-4 text-slate-600">
-//                         {item.category.name}
-//                       </td>
-//                       <td className="p-4 font-semibold text-slate-900">
-//                         {item.price.toLocaleString()} MMK
-//                       </td>
-//                       <td className="p-4">
-//                         {item.isAvailable ? (
-//                           <Badge className="bg-emerald-100 hover:bg-emerald-100 border-none text-emerald-700">
-//                             Available
-//                           </Badge>
-//                         ) : (
-//                           <Badge className="bg-rose-100 hover:bg-rose-100 border-none text-rose-700">
-//                             Unavailable
-//                           </Badge>
-//                         )}
-//                       </td>
-//                     </tr>
-//                   ))}
-//                 </tbody>
-//               </table>
-//             </div>
-//           )}
-//         </div>
-//       </section>
-//     </div>
-//   );
-// }

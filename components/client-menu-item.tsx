@@ -11,6 +11,7 @@ interface Props {
   categoryId?: string;
   categoryName?: string;
   isAvailable?: boolean;
+  hasSession?: boolean;
 }
 
 const ClientMenuItem = ({
@@ -21,6 +22,7 @@ const ClientMenuItem = ({
   categoryId,
   categoryName,
   isAvailable = true,
+  hasSession,
 }: Props) => {
   // CUSTOMER VIEW: Card
   return (
@@ -61,7 +63,13 @@ const ClientMenuItem = ({
         <div className="flex justify-between items-center">
           <p className="font-bold text-orange-500 text-base">{price} Ks</p>
 
-          <AddToCartButton id={id} name={name} price={price} image={image} />
+          <AddToCartButton
+            id={id}
+            name={name}
+            price={price}
+            image={image}
+            hasSession={hasSession}
+          />
         </div>
       </CardContent>
     </Card>

@@ -2,13 +2,7 @@ import { getAllCategory } from "@/features/admin/category/actions/get-all-catego
 import { getAllMenu } from "@/features/admin/menu/actions/get-all-menu";
 import CanteenMenuClient from "@/components/canteen-menu-client";
 import { protectUserRoute } from "@/lib/auth-guard";
-import {
-  Clock,
-  UtensilsCrossed,
-  ShoppingBag,
-  Zap,
-  ShieldCheck,
-} from "lucide-react";
+import { UtensilsCrossed, ShoppingBag, Zap } from "lucide-react";
 import { HeroSection } from "@/components/hero-section";
 
 export default async function HomePage() {
@@ -72,7 +66,11 @@ export default async function HomePage() {
 
       {/* 3. Interactive Menu Section */}
       <section>
-        <CanteenMenuClient categories={categories} initialMenu={allMenu} />
+        <CanteenMenuClient
+          categories={categories}
+          initialMenu={allMenu}
+          hasSession={!!session?.user}
+        />
       </section>
     </div>
   );

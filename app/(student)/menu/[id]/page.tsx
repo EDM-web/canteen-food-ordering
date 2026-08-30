@@ -13,13 +13,14 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { AddToCartButton } from "@/features/admin/menu/components/add-to-cart-button";
+import { menuPath } from "@/lib/path";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export default async function MenuDetailPage({ params }: Props) {
-  await protectUserRoute();
+  const session = await protectUserRoute();
   const { id } = await params;
 
   const menuItem = await prisma.menuItem.findUnique({
@@ -31,8 +32,10 @@ export default async function MenuDetailPage({ params }: Props) {
 
   if (!menuItem) {
     return (
-      <div className="p-12 font-medium text-red-500 text-center">
-        Menu item not found
+      <div className="min-h-screen">
+        <div className="bg-white py-12 border border-slate-200 rounded-xl text-slate-500 text-center">
+          No menu found
+        </div>
       </div>
     );
   }
@@ -45,15 +48,29 @@ export default async function MenuDetailPage({ params }: Props) {
         size="sm"
         className="text-muted-foreground hover:text-orange-600"
       >
-        <Link href="/admin/dashboard/menu">
+        <Link href={menuPath}>
           <ArrowLeft className="mr-2 w-4 h-4" /> Back to All Menu
         </Link>
       </Button>
 
-      <Card className="bg-white shadow-sm p-6 border rounded-xl">
+      {/* Image Container */}
+      <div className="md:hidden relative flex justify-center items-center bg-slate-50 border rounded-lg w-full aspect-square overflow-hidden">
+        {menuItem.imageUrl ? (
+          <Image
+            src={menuItem.imageUrl}
+            alt={menuItem.name}
+            fill
+            className="object-cover"
+          />
+        ) : (
+          <Utensils className="w-16 h-16 text-slate-300" />
+        )}
+      </div>
+
+      <Card className="bg-white shadow-sm p-6 border rounded-xl ring-0">
         <div className="items-start gap-8 grid md:grid-cols-2">
           {/* Image Container */}
-          <div className="relative flex justify-center items-center bg-slate-50 border rounded-lg w-full aspect-square overflow-hidden">
+          <div className="hidden relative md:flex justify-center items-center bg-slate-50 border rounded-lg w-full aspect-square overflow-hidden">
             {menuItem.imageUrl ? (
               <Image
                 src={menuItem.imageUrl}
@@ -111,6 +128,7 @@ export default async function MenuDetailPage({ params }: Props) {
                   name={menuItem.name}
                   price={menuItem.price}
                   image={menuItem.imageUrl ?? undefined}
+                  hasSession={!!session?.user}
                 />
               </div>
             </div>

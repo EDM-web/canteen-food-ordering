@@ -153,7 +153,7 @@ export default function CheckOutForm({ userId }: { userId: string }) {
                     <button
                       type="button"
                       onClick={() => removeFromCart(item.menuItemId)}
-                      className="bg-rose-50 hover:bg-rose-100 p-2 rounded-lg text-rose-500 transition-colors"
+                      className="bg-rose-50 hover:bg-rose-100 p-2 rounded-lg text-rose-500 transition-colors cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -169,13 +169,13 @@ export default function CheckOutForm({ userId }: { userId: string }) {
           <div className="space-y-6 bg-white p-6 border border-slate-300/80 rounded-2xl">
             <h2 className="font-bold text-slate-900 text-lg">Order summary</h2>
 
-            <div className="space-y-3 divide-y divide-slate-100 text-sm">
+            <div className="space-y-3 text-sm">
               {cart.map((item) => (
                 <div
                   key={item.menuItemId}
-                  className="flex justify-between items-center pt-3 first:pt-0 text-slate-600"
+                  className="flex justify-between items-center text-slate-600"
                 >
-                  <span className="max-w-[200px] truncate">
+                  <span className="max-w-[200px] leading-loose">
                     {item.name} × {item.quantity}
                   </span>
                   <span className="font-medium text-slate-900">

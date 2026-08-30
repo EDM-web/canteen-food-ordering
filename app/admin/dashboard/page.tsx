@@ -79,6 +79,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-8 min-h-screen">
+      {/* header */}
       <div className="space-y-1">
         <h1 className="font-bold text-slate-700 text-2xl sm:text-3xl xl:text-4xl tracking-tight">
           Admin Dashboard
@@ -87,7 +88,7 @@ export default async function AdminDashboardPage() {
           Overview of today's performance and inventory management
         </p> */}
       </div>
-
+      {/* card grid  */}
       <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <div className="bg-white shadow-sm p-5 border border-slate-200/80 rounded-2xl">
           <div className="flex justify-between items-center">
@@ -155,7 +156,11 @@ export default async function AdminDashboardPage() {
         </div>
       </div>
 
-      <DashboardTable todayOrders={todayOrders} allMenuItems={allMenuItems} />
+      <DashboardTable
+        todayOrders={todayOrders}
+        allMenuItems={allMenuItems}
+        hasSession={!!session?.user}
+      />
     </div>
   );
 }

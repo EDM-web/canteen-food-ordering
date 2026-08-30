@@ -11,7 +11,7 @@ const CategoryList = async () => {
           No categories found
         </div>
       ) : (
-        <div className="gap-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {category.map((c) => (
             <CategoryItem key={c.id} name={c.name} isCard={true} id={c.id} />
           ))}

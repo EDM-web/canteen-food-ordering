@@ -64,8 +64,8 @@ export default function CanteenMenuClient({
   return (
     <div className="space-y-8">
       {/* Categories Bar */}
-      <section className="space-y-5">
-        <div>
+      <section className="space-y-5 text-left md:text-center">
+        <div className="space-y-1.5">
           <h2 className="font-serif font-bold text-orange-500 text-3xl tracking-tight">
             Categories
           </h2>
@@ -73,7 +73,7 @@ export default function CanteenMenuClient({
             Select a category to filter available items
           </p>
         </div>
-        <div className="flex items-center gap-2.5 py-1 overflow-x-auto scroll-smooth no-scrollbar">
+        <div className="flex justify-start md:justify-center items-center gap-2.5 py-1 overflow-x-auto scroll-smooth no-scrollbar">
           <button
             onClick={() => setSelectedCategory("all")}
             className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all cursor-pointer flex-shrink-0 ${
@@ -104,17 +104,19 @@ export default function CanteenMenuClient({
         </div>
       </section>
 
+      <div className="flex justify-start md:justify-center">
+        <SearchInput placeholder="Search menu items..." />
+      </div>
+
       {/* Menu Grid */}
       <section className="space-y-8">
-        <div className="flex md:flex-row flex-col justify-between gap-y-6">
+        <div className="gap-y-6">
           <h2 className="font-bold text-orange-500 text-2xl tracking-tight">
             {selectedCategory === "all"
               ? "All Menus"
               : availableCategories.find((c) => c.id === selectedCategory)
                   ?.name}
           </h2>
-
-          <SearchInput placeholder="Search menu items..." />
         </div>
 
         {filteredMenu.length === 0 ? (

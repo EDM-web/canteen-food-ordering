@@ -345,7 +345,6 @@
 // }
 
 // app/orders/[id]/page.tsx
-import { Suspense } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -392,9 +391,10 @@ export default async function OrderDetailPage({
       </Button>
 
       {/* ၂။ DB ကနေ Data ဆွဲနေစဉ် အောက်ပါ Skeleton ကို အစားထိုးပြထားမည် */}
-      <Suspense fallback={<LoadingSpinner />}>
-        <OrderDetailContent orderId={resolvedParams.id} />
-      </Suspense>
+      {/* <Suspense fallback={<LoadingSpinner />}>
+        
+      </Suspense> */}
+      <OrderDetailContent orderId={resolvedParams.id} />
     </div>
   );
 }

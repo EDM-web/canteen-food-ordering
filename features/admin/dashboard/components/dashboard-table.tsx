@@ -155,11 +155,11 @@ export default function DashboardTable({
                   <tr>
                     <th className="p-4">Order ID</th>
                     <th className="p-4">Customer</th>
-                    <th className="p-4 text-center">Items</th>
-                    <th className="p-4 text-right">Total Amount</th>
-                    <th className="p-4 text-center">Order Status</th>
-                    <th className="p-4 text-center">Payment</th>
-                    <th className="p-4 text-center">Action</th>
+                    <th className="p-4">Items</th>
+                    <th className="p-4">Total Amount</th>
+                    <th className="p-4">Order Status</th>
+                    <th className="p-4">Payment</th>
+                    <th className="p-4">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -174,7 +174,7 @@ export default function DashboardTable({
                       <td className="p-4 font-medium text-slate-800 align-middle">
                         {order.user?.name || order.user?.email || "Guest User"}
                       </td>
-                      <td className="p-4 text-slate-600 text-center align-middle">
+                      <td className="p-4 text-slate-600 align-middle">
                         {(() => {
                           const totalQuantity = order.orderItems.reduce(
                             (acc, item) => acc + item.quantity,
@@ -185,23 +185,23 @@ export default function DashboardTable({
                           }`;
                         })()}
                       </td>
-                      <td className="p-4 font-semibold text-orange-600 text-right align-middle">
+                      <td className="p-4 font-semibold text-orange-600 align-middle">
                         {order.totalAmount.toLocaleString()} MMK
                       </td>
-                      <td className="p-4 text-center align-middle">
+                      <td className="p-4 align-middle">
                         <OrderStatusSelect
                           orderId={order.id}
                           currentStatus={order.status}
                         />
                       </td>
-                      <td className="p-4 text-center align-middle">
+                      <td className="p-4 align-middle">
                         <PaymentStatusSelect
                           orderId={order.id}
                           currentStatus={order.paymentStatus}
                           orderStatus={order.status}
                         />
                       </td>
-                      <td className="p-4 text-center align-middle">
+                      <td className="p-4 align-middle">
                         <div className="flex gap-2">
                           <Button asChild size="sm" variant="outline">
                             <Link href={orderDetailPath(order.id)}>

@@ -1,5 +1,5 @@
 // components/ui/LoadingSpinner.tsx
-import { Utensils } from "lucide-react"; // lucide-react မရှိရင် သာမန် Text သို့ SVG သုံးနိုင်ပါတယ်
+import { Utensils } from "lucide-react";
 
 export default function LoadingSpinner({
   text = "Loading, please wait...",
@@ -8,17 +8,19 @@ export default function LoadingSpinner({
 }) {
   return (
     <div className="flex flex-col justify-center items-center space-y-4 min-h-[80vh]">
-      <div className="relative flex justify-center items-center">
-        {/* Outer Animated Spinner */}
-        <div className="border-4 border-orange-200 border-t-orange-500 rounded-full w-16 h-16 animate-spin"></div>
-        {/* Center Food Icon */}
-        <div className="absolute text-orange-500 animate-pulse">
-          <Utensils className="w-6 h-6" />
+      <div className="flex items-center gap-2">
+        <div className="relative flex justify-center items-center">
+          {/* Outer Animated Spinner */}
+          <div className="border-2 border-orange-200 border-t-orange-500 rounded-full w-14 h-14 animate-spin"></div>
+          {/* Center Food Icon */}
+          <div className="absolute text-orange-500">
+            <Utensils className="w-6 h-6" />
+          </div>
         </div>
+        <p className="font-normal text-gray-600 dark:text-gray-400 text-base">
+          {text}
+        </p>
       </div>
-      <p className="font-medium text-gray-600 dark:text-gray-400 text-base animate-pulse">
-        {text}
-      </p>
     </div>
   );
 }

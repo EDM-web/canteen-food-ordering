@@ -23,7 +23,7 @@ export default async function OrderHistoryPage() {
   const orders = result.orders || [];
 
   return (
-    <div className="space-y-6 mx-auto max-w-5xl container">
+    <div className="space-y-6 mx-auto py-4 max-w-5xl min-h-screen container">
       <div className="flex justify-between items-center">
         <div>
           <p className="font-sans font-bold text-muted-foreground text-sm tracking-wide">

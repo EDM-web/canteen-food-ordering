@@ -97,8 +97,10 @@ export default function OrderDetailPage({
 
   if (loading) {
     return (
-      <div className="p-12 text-muted-foreground text-sm text-center">
-        Loading order details...
+      <div className="flex justify-center items-center min-h-[85vh]">
+        <p className="text-muted-foreground text-sm">
+          Loading order details...
+        </p>
       </div>
     );
   }
@@ -122,7 +124,7 @@ export default function OrderDetailPage({
   const isCancelled = order.status === "Cancelled";
 
   return (
-    <div className="space-y-4 mx-auto py-6 max-w-3xl container">
+    <div className="space-y-4 mx-auto py-6 max-w-3xl min-h-screen container">
       {/* Back Button */}
       <Button
         asChild
@@ -292,7 +294,7 @@ export default function OrderDetailPage({
 
         {/* 4. Action Footer (If Order is Pending) */}
         {order.status === "Pending" && (
-          <CardFooter className="flex sm:flex-row flex-col justify-between items-center gap-3 bg-amber-50/30 dark:bg-slate-800/30 p-4 border-slate-100 dark:border-slate-800 border-t">
+          <CardFooter className="flex sm:flex-row flex-col justify-between items-center gap-3 bg-amber-50/30 p-4 border-slate-100 border-t">
             <p className="text-amber-700 dark:text-amber-400 text-xs">
               You can cancel as long as the kitchen hasn't started preparing.
             </p>
@@ -302,7 +304,7 @@ export default function OrderDetailPage({
                 <Button
                   variant="destructive"
                   size="sm"
-                  className="bg-rose-600 hover:bg-rose-700 w-full sm:w-auto font-semibold text-white cursor-pointer"
+                  className="bg-red-500 hover:bg-red-600 w-full sm:w-auto font-semibold text-white cursor-pointer"
                 >
                   Cancel Order
                 </Button>
@@ -318,7 +320,7 @@ export default function OrderDetailPage({
                 <AlertDialogFooter>
                   <AlertDialogCancel
                     disabled={cancelling}
-                    className="rounded-xl"
+                    className="cursor-pointer"
                   >
                     Back
                   </AlertDialogCancel>
@@ -328,7 +330,7 @@ export default function OrderDetailPage({
                       handleCancel();
                     }}
                     disabled={cancelling}
-                    className="bg-rose-600 hover:bg-rose-700 rounded-xl text-white"
+                    className="bg-red-500 hover:bg-red-600 text-white cursor-pointer"
                   >
                     {cancelling ? "Cancelling..." : "Cancel Order"}
                   </AlertDialogAction>

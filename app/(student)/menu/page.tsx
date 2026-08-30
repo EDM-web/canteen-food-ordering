@@ -37,7 +37,7 @@ const AllMenuPage = async ({ searchParams }: PageProps) => {
   const allMenu = (await getAllMenu(false, searchQuery)) || [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-2 py-4">
       <CanteenMenuClient
         categories={categories}
         initialMenu={allMenu}

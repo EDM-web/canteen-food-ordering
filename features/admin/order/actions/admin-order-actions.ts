@@ -67,6 +67,13 @@ export async function updateOrderStatusAction(
     // Pusher real-time event trigger
     await pusherServer.trigger("admin-orders", "update-order", updatedOrder);
 
+    // Customer ဘက်မှ နားထောင်နိုင်ရန် user-id သို့မဟုတ် general customer channel သို့ trigger လုပ်ပေးပါ
+    await pusherServer.trigger(
+      `user-orders-${updatedOrder.userId}`,
+      "update-order",
+      updatedOrder
+    );
+
     revalidatePath("/admin/dashboard");
     revalidatePath("/admin/orders");
     revalidatePath(`/admin/orders/${orderId}`);
@@ -108,6 +115,13 @@ export async function updatePaymentStatusAction(
 
     // Pusher real-time event trigger
     await pusherServer.trigger("admin-orders", "update-order", updatedOrder);
+
+    // Customer ဘက်မှ နားထောင်နိုင်ရန် user-id သို့မဟုတ် general customer channel သို့ trigger လုပ်ပေးပါ
+    await pusherServer.trigger(
+      `user-orders-${updatedOrder.userId}`,
+      "update-order",
+      updatedOrder
+    );
 
     revalidatePath("/admin/dashboard");
     revalidatePath("/admin/orders");

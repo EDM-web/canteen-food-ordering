@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Select,
@@ -28,8 +28,13 @@ export function OrderStatusSelect({
   const [status, setStatus] = useState<OrderStatus>(currentStatus);
   const [loading, setLoading] = useState(false);
 
-  // Customer က Cancel လုပ်ထားလျှင် Select Dropdown ပြစရာမလိုဘဲ Badge ပဲပြမည်
-  if (status === "Cancelled") {
+  // ⭐️ Real-time ကနေ currentStatus ပြောင်းလာတာနဲ့ Local State ကို Synced ဖြစ်အောင် ပြုလုပ်ခြင်း
+  useEffect(() => {
+    setStatus(currentStatus);
+  }, [currentStatus]);
+
+  // ⭐️ Local state ရော Parent Prop ပါ 'Cancelled' ဖြစ်နေရင် Dropdown မပြဘဲ Badge ပြမည်
+  if (currentStatus === "Cancelled" || status === "Cancelled") {
     return <OrderStatusBadge status="Cancelled" />;
   }
 
@@ -55,22 +60,21 @@ export function OrderStatusSelect({
       </SelectTrigger>
       <SelectContent className="p-1">
         <SelectItem value="Pending">
-          <span className="bg-amber-500 rounded-full w-2 h-2" />
+          <span className="inline-block bg-amber-500 mr-2 rounded-full w-2 h-2" />
           Pending
         </SelectItem>
         <SelectItem value="Preparing">
-          <span className="bg-blue-500 rounded-full w-2 h-2" />
+          <span className="inline-block bg-blue-500 mr-2 rounded-full w-2 h-2" />
           Preparing
         </SelectItem>
         <SelectItem value="Ready">
-          <span className="bg-emerald-500 rounded-full w-2 h-2" />
+          <span className="inline-block bg-emerald-500 mr-2 rounded-full w-2 h-2" />
           Ready
         </SelectItem>
         <SelectItem value="Completed">
-          <span className="bg-green-500 rounded-full w-2 h-2" />
+          <span className="inline-block bg-green-500 mr-2 rounded-full w-2 h-2" />
           Completed
         </SelectItem>
-        {/* Cancelled ကို Admin Dropdown မှ မမြင်ရအောင် ဖြုတ်ထားပါသည် */}
       </SelectContent>
     </Select>
   );
@@ -88,6 +92,11 @@ export function PaymentStatusSelect({
 }) {
   const [status, setStatus] = useState<PaymentStatus>(currentStatus);
   const [loading, setLoading] = useState(false);
+
+  // ⭐️ Real-time Prop Sync
+  useEffect(() => {
+    setStatus(currentStatus);
+  }, [currentStatus]);
 
   // Order သည် Cancelled ဖြစ်နေလျှင် Payment Dropdown မပြဘဲ Cancelled Badge ပဲ ပြမည်
   if (orderStatus === "Cancelled") {
@@ -116,11 +125,11 @@ export function PaymentStatusSelect({
       </SelectTrigger>
       <SelectContent className="p-1">
         <SelectItem value="Unpaid">
-          <span className="bg-red-500 rounded-full w-2 h-2" />
+          <span className="inline-block bg-red-500 mr-2 rounded-full w-2 h-2" />
           Unpaid
         </SelectItem>
         <SelectItem value="Paid">
-          <span className="bg-emerald-500 rounded-full w-2 h-2" />
+          <span className="inline-block bg-emerald-500 mr-2 rounded-full w-2 h-2" />
           Paid
         </SelectItem>
       </SelectContent>

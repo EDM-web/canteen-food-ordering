@@ -5,7 +5,6 @@ import { ArrowLeft } from "lucide-react";
 import { orderPath } from "@/lib/path";
 import { OrderDetailContent } from "@/features/order/components/order-detail-content";
 import { Skeleton } from "@/components/ui/skeleton";
-import LoadingSpinner from "@/components/loading-spinner";
 
 function OrderDetailSkeleton() {
   return (

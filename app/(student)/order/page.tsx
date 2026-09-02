@@ -133,9 +133,6 @@ export default async function OrderHistoryPage() {
                     <PaymentStatusBadge status={order.paymentStatus} />
                   </TableCell>
 
-                  {/* <TableCell className="text-muted-foreground text-xs">
-                    {new Date(order.createdAt).toLocaleString()}
-                  </TableCell> */}
                   <TableCell className="text-muted-foreground text-xs">
                     {new Date(order.createdAt).toLocaleDateString()}
                   </TableCell>

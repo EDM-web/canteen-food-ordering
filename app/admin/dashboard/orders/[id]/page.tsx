@@ -146,7 +146,7 @@ export default async function AdminOrderDetailPage({
           </Table>
 
           <div className="flex justify-between items-center bg-slate-50/50 p-6 border-t font-bold text-lg">
-            <span>Total Revenue</span>
+            <span>Total Amount</span>
             <span className="text-orange-600">{order.totalAmount} Ks</span>
           </div>
         </CardContent>

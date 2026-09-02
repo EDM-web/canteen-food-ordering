@@ -191,7 +191,12 @@ export const SignUpAndSignInButtons = ({
 
   return (
     <div className="flex items-center gap-2">
-      <Button size={"lg"} variant={"ghost"} className="cursor-pointer" asChild>
+      <Button
+        size={"lg"}
+        variant={"secondary"}
+        className="cursor-pointer"
+        asChild
+      >
         <Link href={signInPath}>Signin</Link>
       </Button>
       <Button

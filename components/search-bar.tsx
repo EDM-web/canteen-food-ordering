@@ -18,7 +18,7 @@ export default function SearchInput({ placeholder }: { placeholder: string }) {
       params.delete("search");
     }
     replace(`${pathname}?${params.toString()}`, { scroll: false });
-  }, 300);
+  }, 100);
 
   return (
     <div className="relative flex items-center w-full max-w-xl">

@@ -289,6 +289,7 @@ export default function DashboardTable({
                     <TableCell className="p-4">
                       <UpdateMenuForm
                         menuId={item.id}
+                        image={item.imageUrl}
                         name={item.name}
                         price={item.price}
                         hasSession={hasSession}

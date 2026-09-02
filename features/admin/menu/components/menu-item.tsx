@@ -85,6 +85,7 @@ const MenuItem = async ({
           <div className="flex items-center gap-1.5">
             <UpdateMenuForm
               menuId={id}
+              image={image}
               name={name}
               price={price}
               categoryId={categoryId}
@@ -136,6 +137,7 @@ const MenuItem = async ({
             <div className="flex items-center gap-1.5">
               <UpdateMenuForm
                 menuId={id}
+                image={image}
                 name={name}
                 price={price}
                 categoryId={categoryId}

@@ -23,7 +23,14 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { CartIcon } from "./cart-icon";
 import { ProfileDropdown } from "@/features/profile/components/profile-dropdown";
-import { Menu, Home, Utensils, LogOut, ShoppingBag } from "lucide-react";
+import {
+  Menu,
+  Home,
+  Utensils,
+  LogOut,
+  ShoppingBag,
+  ChefHat,
+} from "lucide-react";
 import { signOut } from "@/features/auth/actions/sign-out";
 import MoblieProfile from "./mobile-profile";
 
@@ -45,12 +52,19 @@ const Navbar = async () => {
   return (
     <header className="top-0 z-50 sticky bg-background/95 supports-[backdrop-filter]:bg-background/60 backdrop-blur border-b w-full">
       <div className="flex justify-between items-center mx-auto md:p-0 px-3 h-16 container">
-        {/* Brand / Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 font-bold text-2xl lg:text-3xl"
+          className="group flex items-center gap-2.5 font-normal text-2xl lg:text-3xl tracking-tight active:scale-95 transition-transform"
         >
-          <span className="text-orange-500">Canteen</span>
+          {/* Icon Container */}
+          <div className="hidden sm:flex justify-center items-center bg-orange-100 group-hover:bg-orange-500 shadow-sm p-2 rounded-xl text-orange-600 group-hover:text-white transition-colors duration-200">
+            <ChefHat className="w-6 lg:w-7 h-6 lg:h-7" />
+          </div>
+
+          {/* Brand Text */}
+          <span className="text-orange-500 group-hover:text-orange-600 tracking-tight transition-colors">
+            Canteen
+          </span>
         </Link>
 
         {/* Desktop Navigation Menu */}

@@ -107,7 +107,7 @@ export default async function AdminDashboardPage() {
           </div>
         </div>
 
-        <div className="bg-white shadow-sm p-5 border border-slate-200/80 rounded-2xl">
+        {/* <div className="bg-white shadow-sm p-5 border border-slate-200/80 rounded-2xl">
           <div className="flex justify-between items-center">
             <span className="font-medium text-slate-500 text-xs uppercase tracking-wider">
               Today's Orders
@@ -121,7 +121,7 @@ export default async function AdminDashboardPage() {
               {todayTotalOrdersCount}
             </h2>
           </div>
-        </div>
+        </div> */}
 
         <div className="bg-white shadow-sm p-5 border border-slate-200/80 rounded-2xl">
           <div className="flex justify-between items-center">
